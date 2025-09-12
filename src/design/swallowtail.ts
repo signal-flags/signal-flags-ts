@@ -1,4 +1,3 @@
-import { type Flag } from '../flag';
 import { type DesignSet, type DrawFunction, type OutlineFunction } from '.';
 import { getColour } from '../colour';
 

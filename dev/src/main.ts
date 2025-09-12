@@ -1,5 +1,11 @@
 import './style.css';
-import { flagSet, allSvg, generateLong, generatePrimary, generateSquare } from '../../src';
+import {
+  flagSet,
+  allSvg,
+  generateLong,
+  generatePrimary,
+  generateSquare,
+} from '../../src';
 
 const $app = document.querySelector<HTMLDivElement>('#app');
 
