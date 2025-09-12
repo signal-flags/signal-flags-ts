@@ -1,7 +1,9 @@
+import { type FlagShape } from '../design';
+
 export interface Flag {
   key: string;
   name: string;
-  shape: 'swallowtail';
-  design: 'solid' | 'vertical';
+  shape: FlagShape;
+  design: string;
   clrs: string[];
 }

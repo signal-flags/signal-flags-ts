@@ -20,13 +20,11 @@ export const flagSets = {
  * @returns
  */
 export const getSvg = (
-  flagSet: FlagSet,
-  key: string,
+  flag: Flag,
   designOptions: DesignOptions = {},
   buildOptions: BuildOptions = {},
 ) => {
   // Get the definition for this flag.
-  const flag = flagSet[key];
 
   // Use any override size from the flag definition: note this will override
   // the explicit `shape` option. This is only currently used for the AP flag.

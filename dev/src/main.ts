@@ -21,20 +21,23 @@ for (const flagSet of Object.values(flagSets)) {
     $tr.append(createEl(key));
     $tr.append(createEl(flag.name));
 
-    let td = createEl(getSvg(flagSet, key, { outline: true }));
+    let td = createEl(getSvg(flag));
+    td.style.width = '10vw';
+    $tr.append(td);
+
+    td = createEl(getSvg(flag, { dimensions: 'square' }));
     td.style.width = '10vw';
     $tr.append(td);
 
     td = createEl(
-      getSvg(flagSet, key, { outline: true, dimensions: 'square' }),
-    );
-    td.style.width = '10vw';
-    $tr.append(td);
-
-    td = createEl(
-      getSvg(flagSet, key, { clrSet: 'primary', dimensions: 'square' }),
+      getSvg(flag, {
+        clrSet: 'primary',
+        outline: false,
+        dimensions: 'square',
+      }),
     );
     td.style.width = '10vw';
     $tr.append(td);
   }
 }
+

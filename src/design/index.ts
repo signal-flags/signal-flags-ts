@@ -1,10 +1,13 @@
 import { swallowtail } from './swallowtail';
+import { rectangle } from './rectangle';
 
 import { type Flag } from '../flag';
 
+export type FlagShape = keyof typeof designs;
+
 export interface DesignSettings {
   dimensions: number[];
-  outline?: number | boolean;
+  outline: number | false;
   clrSet?: string | Record<string, string>;
 }
 
@@ -18,13 +21,14 @@ export type DrawFunction = (flag: Flag, options: DesignSettings) => string;
 export type OutlineFunction = (options: DesignSettings) => string;
 
 export interface DesignSet {
-  dimensions: Record<string, [a: number, b: number]>;
+  dimensions: Record<string, number[]>;
   outline: OutlineFunction;
   designs: Record<string, DrawFunction>;
 }
 
 const designs: Record<string, DesignSet> = {
   swallowtail,
+  rectangle,
 };
 
 // Ponyfill for btoa in node.
@@ -34,21 +38,11 @@ const toBase64 =
     : btoa;
 
 export interface BuildOptions {
-  dimensions?: [a: number, b: number] | string;
+  dimensions?: number[] | string;
   file?: boolean;
   dataUri?: boolean;
 }
 
-/**
- * Build the SVG for a flag.
- *
- * @private
- * @param {object} shape A map of functions to draw designs for this shape.
- * @param {mixed[]} design An array of design elements for the flag.
- * @param {object} colors Colours for this flag set.
- * @param {number[]} size The size to draw [width, height].
- */
-// function buildFlagSvg({ draw, design, colors, outline, file, dataUri, shape }) {
 /**
  * Build the SVG for a flag.
  *
@@ -62,18 +56,23 @@ export const buildFlagSvg = (
   design: DesignOptions,
   options: BuildOptions,
 ): string => {
+  // Holds the parts of the SVG.
+  const parts = [];
+
+  // Get the design for the flag.
   const designSet = designs[flag.shape];
 
   // Get the dimensions for this shape.
   // const [w, h] = Array.isArray(shape)
   //   ? shape
   //   : (shape && draw.size[shape]) || draw.size.default;
-  const dimensions = Array.isArray(options.dimensions)
-    ? options.dimensions
-    : designSet.dimensions[options.dimensions ?? 'default'];
-  const [w, h] = dimensions;
-  let parts = [];
+  const dimensions = Array.isArray(design.dimensions)
+    ? design.dimensions
+    : designSet.dimensions[design.dimensions ?? 'default'] ?? designSet.dimensions.default;
 
+  console.log({ options, dimensions });
+  // Add the declaration and outer <svg> element.
+  const [w, h] = dimensions;
   if (options.file || options.dataUri) {
     // Add the xml declaration for a file.
     parts.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
@@ -91,11 +90,17 @@ export const buildFlagSvg = (
   // parts.push(draw[part[0]](part, { w, h, colors, outline }));
   // });
 
-  parts.push(designSet.designs[flag.design](flag, { ...design, dimensions }));
+  const defaultOutline = 1;
+  const outline = design.outline === true ? defaultOutline : design.outline ?? defaultOutline;
+  const settings: DesignSettings = {
+    outline,
+    clrSet: design.clrSet,
+    dimensions,
+  };
+  parts.push(designSet.designs[flag.design](flag, settings));
   // Draw the outline.
-  const { outline, clrSet } = design;
   if (outline) {
-    parts.push(designSet.outline({ dimensions, clrSet, outline }));
+    parts.push(designSet.outline(settings));
   }
 
   // Close the svg element with or without a final newline.

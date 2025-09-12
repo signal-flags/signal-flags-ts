@@ -8,11 +8,20 @@ export const icsFlags: FlagSet = {
     design: 'vertical',
     clrs: ['white', 'blue'],
   },
+
   b: {
     key: 'b',
     name: 'B',
     shape: 'swallowtail',
     design: 'solid',
     clrs: ['red'],
+  },
+
+  f: {
+    key: 'f',
+    name: 'F',
+    shape: 'rectangle',
+    design: 'diamond',
+    clrs: ['red', 'white'],
   },
 };
