@@ -1,5 +1,5 @@
 import './style.css';
-import { flagSets, getSvg } from '../../src';
+import { flagSet, allSvg, generateLong, generatePrimary, generateSquare } from '../../src';
 
 const $app = document.querySelector<HTMLDivElement>('#app');
 
@@ -14,30 +14,38 @@ const createEl = (html: string, el = 'td') => {
   return child;
 };
 
-for (const flagSet of Object.values(flagSets)) {
-  for (const [key, flag] of Object.entries(flagSet)) {
-    const $tr = document.createElement('tr');
-    $tbody.append($tr);
-    $tr.append(createEl(key));
-    $tr.append(createEl(flag.name));
+const flags = allSvg();
+const flagsLong = generateLong();
+const flagsSquare = generateSquare();
+const flagsPrimary = generatePrimary();
 
-    let td = createEl(getSvg(flag));
-    td.style.width = '10vw';
-    $tr.append(td);
+for (const [key, flag] of Object.entries(flagSet)) {
+  const $tr = document.createElement('tr');
+  $tbody.append($tr);
+  $tr.append(createEl(key));
+  $tr.append(createEl(flag.name));
 
-    td = createEl(getSvg(flag, { dimensions: 'square' }));
-    td.style.width = '10vw';
-    $tr.append(td);
+  let div = createEl(flagsLong[key], 'div');
+  let td = createEl('');
+  td.append(div);
+  div.style.width = flag.shape === 'pennant' ? '24vw' : '9vw';
+  $tr.append(td);
 
-    td = createEl(
-      getSvg(flag, {
-        clrSet: 'primary',
-        outline: false,
-        dimensions: 'square',
-      }),
-    );
-    td.style.width = '10vw';
-    $tr.append(td);
-  }
+  div = createEl(flags[key], 'div');
+  td = createEl('');
+  td.append(div);
+  div.style.width = flag.shape === 'pennant' ? '18vw' : '12vw';
+  $tr.append(td);
+
+  div = createEl(flagsSquare[key], 'div');
+  td = createEl('');
+  td.append(div);
+  div.style.width = flag.shape === 'pennant' ? '18vw' : '9vw';
+  $tr.append(td);
+
+  div = createEl(flagsPrimary[key], 'div');
+  td = createEl('');
+  td.append(div);
+  div.style.width = flag.shape === 'pennant' ? '18vw' : '12vw';
+  $tr.append(td);
 }
-

@@ -1,4 +1,3 @@
-// src/shapes/helpers.js
 export type ColourSet = {
   outline: string;
   black: string;

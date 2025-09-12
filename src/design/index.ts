@@ -1,19 +1,26 @@
 import { swallowtail } from './swallowtail';
 import { rectangle } from './rectangle';
+import { pennant } from './pennant';
 
 import { type Flag } from '../flag';
 
 export type FlagShape = keyof typeof designs;
 
-export interface DesignSettings {
-  dimensions: number[];
-  outline: number | false;
-  clrSet?: string | Record<string, string>;
+export interface BuildOptions {
+  dimensions?: number[] | string;
+  file?: boolean;
+  dataUri?: boolean;
 }
 
 export interface DesignOptions {
   dimensions?: string | number[];
   outline?: number | boolean;
+  clrSet?: string | Record<string, string>;
+}
+
+export interface DesignSettings {
+  dimensions: number[];
+  outline: number | false;
   clrSet?: string | Record<string, string>;
 }
 
@@ -26,9 +33,10 @@ export interface DesignSet {
   designs: Record<string, DrawFunction>;
 }
 
-const designs: Record<string, DesignSet> = {
+const designs = {
   swallowtail,
   rectangle,
+  pennant,
 };
 
 // Ponyfill for btoa in node.
@@ -36,12 +44,6 @@ const toBase64 =
   typeof btoa === 'undefined'
     ? (b: string) => Buffer.from(b).toString('base64')
     : btoa;
-
-export interface BuildOptions {
-  dimensions?: number[] | string;
-  file?: boolean;
-  dataUri?: boolean;
-}
 
 /**
  * Build the SVG for a flag.
@@ -51,7 +53,7 @@ export interface BuildOptions {
  * @param options
  * @returns
  */
-export const buildFlagSvg = (
+export const getSvg = (
   flag: Flag,
   design: DesignOptions,
   options: BuildOptions,
@@ -68,9 +70,9 @@ export const buildFlagSvg = (
   //   : (shape && draw.size[shape]) || draw.size.default;
   const dimensions = Array.isArray(design.dimensions)
     ? design.dimensions
-    : designSet.dimensions[design.dimensions ?? 'default'] ?? designSet.dimensions.default;
+    : (designSet.dimensions[design.dimensions ?? 'default'] ??
+      designSet.dimensions.default);
 
-  console.log({ options, dimensions });
   // Add the declaration and outer <svg> element.
   const [w, h] = dimensions;
   if (options.file || options.dataUri) {
@@ -91,12 +93,24 @@ export const buildFlagSvg = (
   // });
 
   const defaultOutline = 1;
-  const outline = design.outline === true ? defaultOutline : design.outline ?? defaultOutline;
+  const outline =
+    design.outline === true
+      ? defaultOutline
+      : (design.outline ?? defaultOutline);
   const settings: DesignSettings = {
     outline,
     clrSet: design.clrSet,
     dimensions,
   };
+
+  const designFn = designSet.designs[flag.design];
+
+  if (typeof designFn !== 'function') {
+    throw new Error(
+      `Design "${flag.design}" does not exist for shape "${flag.shape}"`,
+    );
+  }
+
   parts.push(designSet.designs[flag.design](flag, settings));
   // Draw the outline.
   if (outline) {
