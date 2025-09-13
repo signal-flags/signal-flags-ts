@@ -3,6 +3,8 @@ import { type FlagShape } from './design';
 export interface Flag {
   /** Human name for the flag. */
   name: string;
+  /** Machine-readable name for use e.g. as a filename. */
+  slug?: string;
   /** International Code of Signals or the Racing Rules of Sailing. */
   category: 'ics' | 'rrs';
   /** Long version of the name e.g. Numeral 0. */

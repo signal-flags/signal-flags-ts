@@ -56,7 +56,6 @@ export const flagSet: FlagSet = {
   },
 
   black: {
-    name: 'black',
     category: 'rrs',
     shape: 'rectangle',
     design: 'solid',
@@ -64,7 +63,7 @@ export const flagSet: FlagSet = {
   },
 
   blackAndWhite: {
-    name: 'black and white',
+    slug: 'black-and-white',
     category: 'rrs',
     shape: 'rectangle',
     design: 'diagonalHalves',
@@ -72,7 +71,6 @@ export const flagSet: FlagSet = {
   },
 
   blue: {
-    name: 'blue',
     category: 'rrs',
     shape: 'rectangle',
     design: 'solid',
@@ -80,7 +78,6 @@ export const flagSet: FlagSet = {
   },
 
   green: {
-    name: 'green',
     category: 'rrs',
     shape: 'rectangle',
     design: 'solid',
@@ -88,7 +85,7 @@ export const flagSet: FlagSet = {
   },
 
   greenAndWhite: {
-    name: 'green and white',
+    slug: 'green-and-white',
     category: 'rrs',
     shape: 'rectangle',
     design: 'check',
@@ -97,7 +94,6 @@ export const flagSet: FlagSet = {
   },
 
   orange: {
-    name: 'orange',
     category: 'rrs',
     shape: 'rectangle',
     design: 'solid',
@@ -105,7 +101,6 @@ export const flagSet: FlagSet = {
   },
 
   red: {
-    name: 'red',
     category: 'rrs',
     shape: 'rectangle',
     design: 'solid',
@@ -113,7 +108,6 @@ export const flagSet: FlagSet = {
   },
 
   yellow: {
-    name: 'yellow',
     category: 'rrs',
     shape: 'rectangle',
     design: 'solid',
