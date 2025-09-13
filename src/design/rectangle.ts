@@ -15,7 +15,7 @@ const outline: OutlineFunction = ({ dimensions, clrSet, outline }) => {
   const colour = getColour('outline', clrSet);
   return [
     `<path fill="none" stroke="${colour}" stroke-width="${outline}" `,
-    `d="M${off},${off}H${w - off}V${h - off}H${off}Z"/>\n`,
+    `d="M${off},${off}H${w - off}V${h - off}H${off}Z"/>`,
   ].join('');
 };
 
@@ -52,7 +52,7 @@ const check: DrawFunction = ({ clrs, n }, { dimensions, clrSet }) => {
     y -= yw;
     parts.push(`V${y}H${0}`);
   }
-  parts.push(`V${0}"/>\n`);
+  parts.push(`V${0}"/>`);
 
   x = w - xw;
   y = yw;
@@ -70,7 +70,7 @@ const check: DrawFunction = ({ clrs, n }, { dimensions, clrSet }) => {
     y += yw;
     parts.push(`V${y}H${w}`);
   }
-  parts.push(`V${0}"/>\n`);
+  parts.push(`V${0}"/>`);
   return parts.join('');
 };
 
@@ -87,10 +87,10 @@ const diagonalHalves: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 
   // Draw the top right half.
   parts.push(`<path fill="${getColour(clrs[0], clrSet)}"`);
-  parts.push(` d="M0,0L${w},${h}V0Z"/>\n`);
+  parts.push(` d="M0,0L${w},${h}V0Z"/>`);
   // Draw the bottom left half.
   parts.push(`<path fill="${getColour(clrs[1], clrSet)}"`);
-  parts.push(` d="M0,0L${w},${h}H0Z"/>\n`);
+  parts.push(` d="M0,0L${w},${h}H0Z"/>`);
   return parts.join('');
 };
 
@@ -114,11 +114,11 @@ const diamond: DrawFunction = ({ clrs }, { dimensions, outline, clrSet }) => {
   parts.push(` d="M0,0H${w}V${h}H0Z`);
   // Draw the cut out centre anti-clockwise so it doesn't fill.
   parts.push(`M${w2},${off}L${off},${h2}L${w2},${h - off}`);
-  parts.push(`L${w - off},${h2}L${w2},${off}"/>\n`);
+  parts.push(`L${w - off},${h2}L${w2},${off}"/>`);
   // Draw the centre.
   parts.push(`<path fill="${getColour(clrs[0], clrSet)}"`);
   parts.push(` d="M${w2},${off}L${off},${h2}L${w2},${h - off}`);
-  parts.push(`L${w - off},${h2}Z"/>\n`);
+  parts.push(`L${w - off},${h2}Z"/>`);
 
   return parts.join('');
 };
@@ -132,7 +132,7 @@ const diamond: DrawFunction = ({ clrs }, { dimensions, outline, clrSet }) => {
  */
 const solid: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
   const [w, h] = dimensions;
-  return `<path fill="${getColour(clrs[0], clrSet)}" d="M0,0H${w}V${h}H0Z"/>\n`;
+  return `<path fill="${getColour(clrs[0], clrSet)}" d="M0,0H${w}V${h}H0Z"/>`;
 };
 
 export const rectangle: DesignSet = {

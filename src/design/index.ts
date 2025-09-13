@@ -79,11 +79,11 @@ export const getSvg = (
     // Add the xml declaration for a file.
     parts.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
     parts.push(
-      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">\n`,
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">`,
     );
   } else {
     // Just the svg tag for a DOM node.
-    parts.push(`<svg viewBox="0 0 ${w} ${h}">\n`);
+    parts.push(`<svg viewBox="0 0 ${w} ${h}">`);
   }
 
   // Add the tags for each part of the design.

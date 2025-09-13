@@ -16,7 +16,7 @@ const outline: OutlineFunction = ({ dimensions, clrSet, outline: ow }) => {
   return [
     `<path fill="none" stroke="${colour}" stroke-width="${ow}" `,
     `d="M${off},${off}L${w - off},${(h - fh) / 2 + off}`,
-    `V${(h + fh) / 2 - off}L${off},${h - off}Z"/>\n`,
+    `V${(h + fh) / 2 - off}L${off},${h - off}Z"/>`,
   ].join('');
 };
 
@@ -43,10 +43,10 @@ const circle: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
   // Draw the cut out centre anti-clockwise so it doesn't fill.
   parts.push(`M${cx},${h / 2 - r}`);
   parts.push(`A${r},${r} 0 0 0 ${cx - r},${h / 2}`);
-  parts.push(`A${r},${r} 0 1 0 ${cx},${h / 2 - r}"/>\n`);
+  parts.push(`A${r},${r} 0 1 0 ${cx},${h / 2 - r}"/>`);
   // Draw the centre.
   parts.push(`<circle fill="${getColour(clrs[0], clrSet)}"`);
-  parts.push(` cx="${cx}" cy="${h / 2}" r="${r}"/>\n`);
+  parts.push(` cx="${cx}" cy="${h / 2}" r="${r}"/>`);
   return parts.join('');
 };
 
@@ -77,14 +77,14 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
     parts.push(`<path fill="${getColour(clrs[i], clrSet)}"`);
     parts.push(` d="M${l},${t}`);
     t += dh;
-    parts.push(`L${l + sw},${t}V${h - t}L${l},${h - t + dh}Z"/>\n`);
+    parts.push(`L${l + sw},${t}V${h - t}L${l},${h - t + dh}Z"/>`);
     l += sw;
   }
   // Draw the last stripe
   parts.push(`<path fill="${getColour(clrs[clrs.length - 1], clrSet)}"`);
   parts.push(` d="M${l},${t}L${w},${(h - fh) / 2}V${(h + fh) / 2}`);
   t += dh;
-  parts.push(`L${l},${h - t + dh}Z"/>\n`);
+  parts.push(`L${l},${h - t + dh}Z"/>`);
   return parts.join('');
 };
 

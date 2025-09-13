@@ -16,7 +16,7 @@ const outline: OutlineFunction = ({ dimensions, clrSet, outline: ow }) => {
   return [
     `<path fill="none" stroke="${color}" stroke-width="${ow}" `,
     `d="M${off},${off}`,
-    `H${woff}L${woff - td},${h / 2}L${woff},${h - off}H${off}Z"/>\n`,
+    `H${woff}L${woff - td},${h / 2}L${woff},${h - off}H${off}Z"/>`,
   ].join('');
 };
 
@@ -31,7 +31,7 @@ const solid: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
   const [w, h, td] = dimensions;
   return [
     `<path fill="${getColour(clrs[0], clrSet)}" d="M0,0`,
-    `H${w}L${w - td},${h / 2}L${w},${h}H0Z"/>\n`,
+    `H${w}L${w - td},${h / 2}L${w},${h}H0Z"/>`,
   ].join('');
 };
 
@@ -50,12 +50,12 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
   // l is the left edge of the stripe.
   for (let l = 0; l < w - sw; l += sw) {
     parts.push(`<path fill="${getColour(clrs[l / sw], clrSet)}" d="M${l},0`);
-    parts.push(`H${l + sw}V${h}H${l}Z"/>\n`);
+    parts.push(`H${l + sw}V${h}H${l}Z"/>`);
   }
   // Last stripe has the swallowtail.
   parts.push(`<path fill="${getColour(clrs.at(-1) ?? '', clrSet)}"`);
   parts.push(` d="M${w - sw},0H${w}L${w - td},${h / 2}L${w},${h}`);
-  parts.push(`H${w - sw}Z"/>\n`);
+  parts.push(`H${w - sw}Z"/>`);
   return parts.join('');
 };
 
