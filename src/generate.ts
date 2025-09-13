@@ -16,15 +16,15 @@ export type FilterFunction = (flag: Flag) => boolean;
  * @returns
  */
 export const allSvg = (
-  flagSet: FlagSet = defaultFlagSet,
-  design: DesignOptions = {},
-  build: BuildOptions = {},
+	flagSet: FlagSet = defaultFlagSet,
+	design: DesignOptions = {},
+	build: BuildOptions = {},
 ) => {
-  const all: Record<string, string> = {};
-  for (const [key, flag] of Object.entries(flagSet)) {
-    all[key] = getSvg(flag, design, build);
-  }
-  return all;
+	const all: Record<string, string> = {};
+	for (const [key, flag] of Object.entries(flagSet)) {
+		all[key] = getSvg(flag, design, build);
+	}
+	return all;
 };
 
 /**
@@ -37,42 +37,42 @@ export const allSvg = (
  * @returns
  */
 export const someSvg = (
-  flagSet: FlagSet = defaultFlagSet,
-  designOptions: DesignOptions = {},
-  buildOptions: BuildOptions = {},
-  filter: FilterFunction,
+	flagSet: FlagSet = defaultFlagSet,
+	designOptions: DesignOptions = {},
+	buildOptions: BuildOptions = {},
+	filter: FilterFunction,
 ) => {
-  const some: Record<string, string> = {};
-  for (const [key, flag] of Object.entries(flagSet)) {
-    if (!filter(flag)) continue;
-    some[key] = getSvg(flag, designOptions, buildOptions);
-  }
-  return some;
+	const some: Record<string, string> = {};
+	for (const [key, flag] of Object.entries(flagSet)) {
+		if (!filter(flag)) continue;
+		some[key] = getSvg(flag, designOptions, buildOptions);
+	}
+	return some;
 };
 
 export const generateLong = (
-  flagSet: FlagSet = defaultFlagSet,
-  buildOptions: BuildOptions = {},
+	flagSet: FlagSet = defaultFlagSet,
+	buildOptions: BuildOptions = {},
 ) =>
-  someSvg(
-    flagSet,
-    { dimensions: 'long' },
-    buildOptions,
-    ({ shape }) => shape === 'pennant',
-  );
+	someSvg(
+		flagSet,
+		{ dimensions: 'long' },
+		buildOptions,
+		({ shape }) => shape === 'pennant',
+	);
 
 export const generateSquare = (
-  flagSet: FlagSet = defaultFlagSet,
-  buildOptions: BuildOptions = {},
+	flagSet: FlagSet = defaultFlagSet,
+	buildOptions: BuildOptions = {},
 ) => allSvg(flagSet, { dimensions: 'square' }, buildOptions);
 
 export const generatePrimary = (
-  flagSet: FlagSet = defaultFlagSet,
-  buildOptions: BuildOptions = {},
+	flagSet: FlagSet = defaultFlagSet,
+	buildOptions: BuildOptions = {},
 ) =>
-  someSvg(
-    flagSet,
-    { dimensions: 'square', clrSet: 'primary', outline: false },
-    buildOptions,
-    ({ category }) => category === 'ics',
-  );
+	someSvg(
+		flagSet,
+		{ dimensions: 'square', clrSet: 'primary', outline: false },
+		buildOptions,
+		({ category }) => category === 'ics',
+	);
