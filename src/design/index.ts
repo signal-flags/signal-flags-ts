@@ -1,6 +1,7 @@
 import { swallowtail } from './swallowtail';
 import { rectangle } from './rectangle';
 import { pennant } from './pennant';
+import { triangle } from './triangle';
 
 import { type Flag } from '../flag';
 
@@ -37,6 +38,7 @@ const designs = {
 	swallowtail,
 	rectangle,
 	pennant,
+	triangle,
 };
 
 // Ponyfill for btoa in node.
@@ -72,19 +74,16 @@ export const getSvg = (
 		? design.dimensions
 		: (designSet.dimensions[design.dimensions ?? 'default'] ??
 			designSet.dimensions.default);
-
-	// Add the declaration and outer <svg> element.
 	const [w, h] = dimensions;
+
 	if (options.file || options.dataUri) {
 		// Add the xml declaration for a file.
-		parts.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
-		parts.push(
-			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">`,
-		);
-	} else {
-		// Just the svg tag for a DOM node.
-		parts.push(`<svg viewBox="0 0 ${w} ${h}">`);
+		parts.push('<?xml version="1.0" encoding="UTF-8"?>\n');
 	}
+	// Add the declaration and outer <svg> element.
+	parts.push(
+		`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">`,
+	);
 
 	// Add the tags for each part of the design.
 	// shape.designs[flag.design](part) => {

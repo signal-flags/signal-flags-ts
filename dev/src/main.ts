@@ -7,13 +7,6 @@ import {
 	generateSquare,
 } from '../../src';
 
-const $app = document.querySelector<HTMLDivElement>('#app');
-
-const $table = document.createElement('table');
-const $tbody = document.createElement('tbody');
-$table.append($tbody);
-$app?.append($table);
-
 const createEl = (html: string, el = 'td') => {
 	const child = document.createElement(el);
 	child.innerHTML = html;
@@ -25,20 +18,36 @@ const flagsLong = generateLong();
 const flagsSquare = generateSquare();
 const flagsPrimary = generatePrimary();
 
+const $app = document.querySelector<HTMLDivElement>('#app');
+
+const $table = document.createElement('table');
+$app?.append($table);
+
+const $thead = document.createElement('thead');
+$table.append($thead);
+const $tbody = document.createElement('tbody');
+$table.append($tbody);
+
+const $tr = document.createElement('tr');
+$thead.append($tr);
+$tr.append(createEl('Key', 'th'));
+$tr.append(createEl('slug', 'th'));
+$tr.append(createEl('Category', 'th'));
+$tr.append(createEl('Default', 'th'));
+$tr.append(createEl('Square', 'th'));
+$tr.append(createEl('Long', 'th'));
+$tr.append(createEl('Primary', 'th'));
+
 for (const [key, flag] of Object.entries(flagSet)) {
 	const $tr = document.createElement('tr');
 	$tbody.append($tr);
 	$tr.append(createEl(key));
-	$tr.append(createEl(flag.name));
+	$tr.append(createEl(flag.slug ?? `(${key})`));
 
-	let div = createEl(flagsLong[key], 'div');
+	$tr.append(createEl(flag.category));
+
+	let div = createEl(flags[key], 'div');
 	let td = createEl('');
-	td.append(div);
-	div.style.width = flag.shape === 'pennant' ? '24vw' : '9vw';
-	$tr.append(td);
-
-	div = createEl(flags[key], 'div');
-	td = createEl('');
 	td.append(div);
 	div.style.width = flag.shape === 'pennant' ? '18vw' : '12vw';
 	$tr.append(td);
@@ -46,12 +55,19 @@ for (const [key, flag] of Object.entries(flagSet)) {
 	div = createEl(flagsSquare[key], 'div');
 	td = createEl('');
 	td.append(div);
-	div.style.width = flag.shape === 'pennant' ? '18vw' : '9vw';
+	div.style.width = flag.shape === 'pennant' ? '18vw' : flag.shape === 'triangle' ? '12vw' :'9vw';
+	$tr.append(td);
+
+	div = createEl(flagsLong[key], 'div');
+	td = createEl('');
+	td.append(div);
+	div.style.width = flag.shape === 'pennant' ? '24vw' : '9vw';
 	$tr.append(td);
 
 	div = createEl(flagsPrimary[key], 'div');
 	td = createEl('');
 	td.append(div);
-	div.style.width = flag.shape === 'pennant' ? '18vw' : '12vw';
+	td.style.background = '#eee'
+	div.style.width = flag.shape === 'pennant' ? '18vw' : '9vw';
 	$tr.append(td);
 }

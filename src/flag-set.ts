@@ -46,6 +46,14 @@ export const flagSet: FlagSet = {
 		clrs: ['red', 'white', 'red', 'white', 'red'],
 	},
 
+		s3: {
+		category: 'ics',
+		shape: 'triangle',
+		design: 'horizontal',
+
+		clrs: ['white', 'black', 'white'],
+	},
+
 	black: {
 		category: 'rrs',
 		shape: 'rectangle',
@@ -103,5 +111,37 @@ export const flagSet: FlagSet = {
 		shape: 'rectangle',
 		design: 'solid',
 		clrs: ['yellow'],
+	},
+
+	blackAndWhiteCheck: {
+		slug: 'black-and-white-check',
+		category: 'beach',
+		shape: 'rectangle',
+		design: 'check',
+		clrs: ['black', 'white'],
+		n: 2,
+	},
+
+	purple: {
+		category: 'beach',
+		shape: 'rectangle',
+		design: 'solid',
+		clrs: ['purple'],
+	},
+
+	redAndYellow: {
+		slug: 'red-and-yellow',
+		category: 'beach',
+		shape: 'rectangle',
+		design: 'horizontal',
+		clrs: ['red', 'yellow'],
+	},
+
+	redAndYellowDiagonal: {
+		slug: 'red-and-yellow-diagonal',
+		category: 'beach',
+		shape: 'rectangle',
+		design: 'diagonalHalves',
+		clrs: ['red', 'yellow'],
 	},
 };

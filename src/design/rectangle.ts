@@ -130,6 +130,38 @@ const diamond: DrawFunction = ({ clrs }, { dimensions, outline, clrSet }) => {
  * @param settings Design settings.
  * @returns
  */
+const horizontal: DrawFunction = ({ clrs, widths }, { dimensions, clrSet }) => {
+	const [w, h] = dimensions;
+	const parts = [];
+	if (widths) {
+		// Variable stripe height.
+		const sh = h / widths.reduce((sum, stripe) => sum + stripe, 0);
+		// t is the top edge of the stripe.
+		for (let i = 0, t = 0; i < widths.length; i++) {
+			parts.push(`<path fill="${getColour(clrs[i], clrSet)}" d="M0,${t}`);
+			t += widths[i] * sh;
+			parts.push(`H${w}V${t}H${0}Z"/>`);
+		}
+		return parts.join('');
+	}
+
+	// Fixed stripe height.
+	const sh = h / clrs.length;
+	// t is the top edge of the stripe.
+	for (let t = 0; t < h; t += sh) {
+		parts.push(`<path fill="${getColour(clrs[t / sh], clrSet)}"`);
+		parts.push(` d="M0,${t}H${w}V${t + sh}H${0}Z"/>`);
+	}
+	return parts.join('');
+};
+
+/**
+ * Draw a flag with a solid background (e.g. O).
+ *
+ * @param flag Flag settings.
+ * @param settings Design settings.
+ * @returns
+ */
 const solid: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h] = dimensions;
 	return `<path fill="${getColour(clrs[0], clrSet)}" d="M0,0H${w}V${h}H0Z"/>`;
@@ -148,6 +180,7 @@ export const rectangle: DesignSet = {
 		check,
 		diamond,
 		diagonalHalves,
+		horizontal,
 		solid,
 	},
 };

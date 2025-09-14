@@ -1,5 +1,5 @@
 {
-	"name": "signal-flags-ts",
+	"name": "signal-flags",
 	"version": "4.0.0-dev.001",
 	"description": "Generate SVG for flags from the International Code of Signals and Racing Rules of Sailing.",
 	"keywords": [],
@@ -28,7 +28,7 @@
 		"globals": "^16.4.0",
 		"prettier": "^3.6.2",
 		"rimraf": "^6.0.1",
-		"typescript": "~5.8.3",
+		"typescript": "^5.9.2",
 		"typescript-eslint": "^8.43.0",
 		"vite": "^7.1.2"
 	}

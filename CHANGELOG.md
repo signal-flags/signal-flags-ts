@@ -10,9 +10,18 @@ Generate SVG for flags from the International Code of Signals and Racing Rules o
 
 ### Designs: changed
 
-| Name            |     New key     |     New filename      |    Old key    |   Old filename    |
-| --------------- | :-------------: | :-------------------: | :-----------: | :---------------: |
-| Black and white | `blackAndWhite` | `black-and-white.svg` | `blackwhite`  | `blackwhite.svg`  |
-| Green and white | `greenAndWhite` | `green-and-white.svg` | `greenwhite`  | `greenwhite.svg`  |
-| To port         |    `toPort`     |     `to-port.svg`     |   `toport`    |   `toport.svg`    |
-| To starboard    |  `toStarboard`  |  `to-starboard.svg`   | `tostarboard` | `tostarboard.svg` |
+|     New key     |     New filename      |    Old key    |   Old filename    |
+| :-------------: | :-------------------: | :-----------: | :---------------: |
+| `blackAndWhite` | `black-and-white.svg` | `blackwhite`  | `blackwhite.svg`  |
+| `greenAndWhite` | `green-and-white.svg` | `greenwhite`  | `greenwhite.svg`  |
+|    `toPort`     |     `to-port.svg`     |   `toport`    |   `toport.svg`    |
+|  `toStarboard`  |  `to-starboard.svg`   | `tostarboard` | `tostarboard.svg` |
+
+### Designs: added
+
+| Category |          Key           |          Filename           | Description                                    |
+| :------: | :--------------------: | :-------------------------: | ---------------------------------------------- |
+| `beach`  |  `blackAndWhiteCheck`  | `black-and-white-check.svg` | Surfboard/other watercraft boundary            |
+| `beach`  |        `purple`        |        `purple.svg`         | Marine pests (or pollution?)                   |
+| `beach`  |     `redAndYellow`     |    `red-and-yellow.svg`     | Lifeguard patrolled swimming zone              |
+| `beach`  | `redAndYellowDiagonal` |  `red-and-yellow-diagonal`  | Lifeguard patrolled swimming zone (Australia?) |
