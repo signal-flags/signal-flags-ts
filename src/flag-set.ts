@@ -82,7 +82,7 @@ export const flagSet: FlagSet = {
 	},
 
 	l: {
-		category: 'rrs',
+		category: 'ics',
 		shape: 'rectangle',
 		design: 'check',
 		clrs: ['yellow', 'black'],
@@ -97,7 +97,7 @@ export const flagSet: FlagSet = {
 	},
 
 	n: {
-		category: 'rrs',
+		category: 'ics',
 		shape: 'rectangle',
 		design: 'check',
 		clrs: ['blue', 'white'],
@@ -147,7 +147,7 @@ export const flagSet: FlagSet = {
 	},
 
 	u: {
-		category: 'rrs',
+		category: 'ics',
 		shape: 'rectangle',
 		design: 'check',
 		clrs: ['red', 'white'],
@@ -155,7 +155,7 @@ export const flagSet: FlagSet = {
 	},
 
 	v: {
-		category: 'rrs',
+		category: 'ics',
 		shape: 'rectangle',
 		design: 'saltire',
 		clrs: ['red', 'white'],

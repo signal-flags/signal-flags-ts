@@ -56,15 +56,31 @@ export const generateLong = (
 ) =>
 	someSvg(
 		flagSet,
-		{ dimensions: 'long' },
+		{
+			dimensions: {
+				// Make `long` the default for pennants.
+				pennant: { default: 'long' },
+			},
+		},
 		buildOptions,
+		// Generate only pennants.
 		({ shape }) => shape === 'pennant',
 	);
 
 export const generateSquare = (
 	flagSet: FlagSet = defaultFlagSet,
 	buildOptions: BuildOptions = {},
-) => allSvg(flagSet, { dimensions: 'square' }, buildOptions);
+) =>
+	allSvg(
+		flagSet,
+		{
+			dimensions: {
+				// Make `square` the default for rectangles.
+				rectangle: { default: 'square' },
+			},
+		},
+		buildOptions,
+	);
 
 export const generatePrimary = (
 	flagSet: FlagSet = defaultFlagSet,
@@ -72,7 +88,17 @@ export const generatePrimary = (
 ) =>
 	someSvg(
 		flagSet,
-		{ dimensions: 'square', clrSet: 'primary', outline: false },
+		{
+			dimensions: {
+				// Make `square` the default for rectangles.
+				rectangle: { default: 'square' },
+			},
+			// Use the `primary` colour set.
+			clrSet: 'primary',
+			// No outlines.
+			outline: false,
+		},
+		// Generate only ics flags and pennants.
 		buildOptions,
 		({ category }) => category === 'ics',
 	);

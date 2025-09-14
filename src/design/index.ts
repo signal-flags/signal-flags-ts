@@ -14,7 +14,8 @@ export interface BuildOptions {
 }
 
 export interface DesignOptions {
-	dimensions?: string | number[];
+	// dimensions?: Record<FlagShape, Record<string, string | number[]>>;
+	dimensions?: Record<string, Record<string, string>>;
 	outline?: number | boolean;
 	clrSet?: string | Record<string, string>;
 }
@@ -47,26 +48,38 @@ const toBase64 =
 		(b: string) => Buffer.from(b).toString('base64')
 	:	btoa;
 
-export const overrideDesignDimensions = (designSet: DesignSet, options: DesignOptions, flag: Flag) => {
-	return (
-			options.dimensions ?
-			Array.isArray(options.dimensions) ?
-				// If numerical dimensions are set in the options, use these.
-				options.dimensions
-				// If named dimensions are set in the options, use them if they exist for
-				// the shape or the default.
-			:	(designSet.dimensions[options.dimensions] ?? designSet.dimensions.default)
-		: flag.dimensions ?
-			Array.isArray(flag.dimensions) ?
-				// If numerical dimensions are set in the flag, use these.
-				flag.dimensions
-				// If named dimensions are set in the flag, use them if they exist for
-				// the shape or the default.
-			:	(designSet.dimensions[flag.dimensions] ?? designSet.dimensions.default)
-			// Otherwise just use the default!
-		:	designSet.dimensions.default
-	)
-}
+/**
+ * Get the numerical dimensions from a complicated series of potential
+ * overrides.
+ *
+ * @param designSet
+ * @param options
+ * @param flag
+ * @returns
+ */
+export const getNumericalDimensions = (
+	designSet: DesignSet,
+	options: DesignOptions,
+	flag: Flag,
+): number[] => {
+	// If the flag has its own dimensions (e.g. `card` for the `minus` flag) start
+	// with these, otherwise use `default`.
+	const flagDimensions = flag.dimensions ?? 'default';
+	// Are there any dimensions options set for this shape?
+	if (options.dimensions?.[flag.shape]) {
+		// Get any dimensions option set for the flag's dimensions.
+		const setDimensions = options.dimensions[flag.shape][flagDimensions];
+		// If there is an override, use this (either the actual numbers or the
+		// numbers from the definition in the design set).
+		if (setDimensions) {
+			return Array.isArray(setDimensions) ? setDimensions : (
+					designSet.dimensions[setDimensions]
+				);
+		}
+	}
+	// There are no options set, return the default dimensions for this flag.
+	return designSet.dimensions[flagDimensions];
+};
 
 /**
  * Build the SVG for a flag.
@@ -89,7 +102,7 @@ export const getSvg = (
 
 	// Get the dimensions for this shape, using overrides set in the options or in
 	// the flag specification.
-	const dimensions = overrideDesignDimensions(designSet, designOptions, flag, )
+	const dimensions = getNumericalDimensions(designSet, designOptions, flag);
 
 	const [w, h] = dimensions;
 
