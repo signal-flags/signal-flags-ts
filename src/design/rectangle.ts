@@ -249,16 +249,16 @@ const solid: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
  */
 const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h] = dimensions;
-    // Stripe width.
-    const sw = w / clrs.length;
-    const parts = [];
-    // l is the left edge of the stripe.
-    for (let l = 0; l < w; l += sw) {
-      parts.push(`<path fill="${getColour(clrs[l / sw], clrSet)}"`);
-      parts.push(` d="M${l},0H${l + sw}V${h}H${l}Z"/>`);
-    }
-    return parts.join('');
-  };
+	// Stripe width.
+	const sw = w / clrs.length;
+	const parts = [];
+	// l is the left edge of the stripe.
+	for (let l = 0; l < w; l += sw) {
+		parts.push(`<path fill="${getColour(clrs[l / sw], clrSet)}"`);
+		parts.push(` d="M${l},0H${l + sw}V${h}H${l}Z"/>`);
+	}
+	return parts.join('');
+};
 
 export const rectangle: DesignSet = {
 	// Dimensions must be divisible by ?90.

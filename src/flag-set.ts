@@ -50,7 +50,7 @@ export const flagSet: FlagSet = {
 		category: 'ics',
 		shape: 'rectangle',
 		design: 'vertical',
-		clrs: ['yellow', 'blue','yellow', 'blue','yellow', 'blue',],
+		clrs: ['yellow', 'blue', 'yellow', 'blue', 'yellow', 'blue'],
 	},
 
 	h: {
@@ -67,7 +67,6 @@ export const flagSet: FlagSet = {
 		clrs: ['black', 'yellow'],
 	},
 
-	
 	j: {
 		category: 'ics',
 		shape: 'rectangle',
@@ -75,7 +74,6 @@ export const flagSet: FlagSet = {
 		clrs: ['blue', 'white', 'blue'],
 	},
 
-	
 	k: {
 		category: 'ics',
 		shape: 'rectangle',
@@ -83,7 +81,6 @@ export const flagSet: FlagSet = {
 		clrs: ['yellow', 'blue'],
 	},
 
-	
 	l: {
 		category: 'rrs',
 		shape: 'rectangle',
@@ -91,7 +88,7 @@ export const flagSet: FlagSet = {
 		clrs: ['yellow', 'black'],
 		n: 2,
 	},
-	
+
 	n: {
 		category: 'rrs',
 		shape: 'rectangle',
@@ -127,12 +124,12 @@ export const flagSet: FlagSet = {
 		design: 'border',
 		clrs: ['blue', 'white'],
 	},
-	
-		t: {
+
+	t: {
 		category: 'ics',
 		shape: 'rectangle',
 		design: 'vertical',
-		clrs: ['red','white', 'blue'],
+		clrs: ['red', 'white', 'blue'],
 	},
 
 	u: {
@@ -150,11 +147,11 @@ export const flagSet: FlagSet = {
 		clrs: ['red', 'white', 'blue'],
 	},
 
-				n0: {
+	n0: {
 		category: 'ics',
 		shape: 'pennant',
 		design: 'vertical',
-		clrs: ['yellow','red', 'yellow'],
+		clrs: ['yellow', 'red', 'yellow'],
 	},
 
 	n1: {
@@ -171,34 +168,54 @@ export const flagSet: FlagSet = {
 		clrs: ['white', 'blue'],
 	},
 
-			n3: {
+	n3: {
 		category: 'ics',
 		shape: 'pennant',
 		design: 'vertical',
-		clrs: ['red','white', 'blue'],
+		clrs: ['red', 'white', 'blue'],
 	},
-	
+
 	n5: {
 		category: 'ics',
 		shape: 'pennant',
 		design: 'vertical',
 		clrs: ['yellow', 'blue'],
 	},
-	
+
 	ap: {
 		category: 'ics',
 		shape: 'pennant',
 		design: 'vertical',
-
 		clrs: ['red', 'white', 'red', 'white', 'red'],
+	},
+
+	
+	s1: {
+		category: 'ics',
+		shape: 'triangle',
+		design: 'border',
+		clrs: ['yellow', 'blue'],
+	},
+
+	s2: {
+		category: 'ics',
+		shape: 'triangle',
+		design: 'vertical',
+		clrs: ['blue', 'white'],
 	},
 
 	s3: {
 		category: 'ics',
 		shape: 'triangle',
 		design: 'horizontal',
-
 		clrs: ['white', 'black', 'white'],
+	},
+
+	s4: {
+		category: 'ics',
+		shape: 'triangle',
+		design: 'hoistSquare',
+		clrs: ['yellow', 'red'],
 	},
 
 	black: {
