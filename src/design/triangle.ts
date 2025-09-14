@@ -28,28 +28,28 @@ const outline: OutlineFunction = ({ dimensions, clrSet, outline: ow }) => {
  */
 const horizontal: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h] = dimensions;
-    const parts = [];
+	const parts = [];
 
-    const yi = h / clrs.length;
-    const h2 = h / 2;
-    const xi = (w * 2) / clrs.length;
-    // Draw the top stripe.
-    parts.push(`<path fill="${getColour(clrs[0], clrSet)}" d="M0,0`);
-    parts.push(`V${yi}H${xi}Z"/>`);
-    // Draw the middle stripe.
-    parts.push(`<path fill="${getColour(clrs[1], clrSet)}" d="M0,${yi}`);
-    parts.push(`V${yi + yi}H${xi}L${w},${h2}L${xi},${yi}Z"/>`);
-    // Draw the bottom stripe.
-    parts.push(`<path fill="${getColour(clrs[2], clrSet)}" d="M0,${h}`);
-    parts.push(`V${yi + yi}H${xi}Z"/>`);
+	const yi = h / clrs.length;
+	const h2 = h / 2;
+	const xi = (w * 2) / clrs.length;
+	// Draw the top stripe.
+	parts.push(`<path fill="${getColour(clrs[0], clrSet)}" d="M0,0`);
+	parts.push(`V${yi}H${xi}Z"/>`);
+	// Draw the middle stripe.
+	parts.push(`<path fill="${getColour(clrs[1], clrSet)}" d="M0,${yi}`);
+	parts.push(`V${yi + yi}H${xi}L${w},${h2}L${xi},${yi}Z"/>`);
+	// Draw the bottom stripe.
+	parts.push(`<path fill="${getColour(clrs[2], clrSet)}" d="M0,${h}`);
+	parts.push(`V${yi + yi}H${xi}Z"/>`);
 
-    return parts.join('');
-  }
+	return parts.join('');
+};
 
 export const triangle: DesignSet = {
 	// Dimensions must be divisble by 30.
 	dimensions: {
-		default: [240, 180],
+		default: [360, 270],
 	},
 
 	outline,

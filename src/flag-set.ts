@@ -46,7 +46,7 @@ export const flagSet: FlagSet = {
 		clrs: ['red', 'white', 'red', 'white', 'red'],
 	},
 
-		s3: {
+	s3: {
 		category: 'ics',
 		shape: 'triangle',
 		design: 'horizontal',

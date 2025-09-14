@@ -43,9 +43,9 @@ const designs = {
 
 // Ponyfill for btoa in node.
 const toBase64 =
-	typeof btoa === 'undefined'
-		? (b: string) => Buffer.from(b).toString('base64')
-		: btoa;
+	typeof btoa === 'undefined' ?
+		(b: string) => Buffer.from(b).toString('base64')
+	:	btoa;
 
 /**
  * Build the SVG for a flag.
@@ -70,9 +70,10 @@ export const getSvg = (
 	// const [w, h] = Array.isArray(shape)
 	//   ? shape
 	//   : (shape && draw.size[shape]) || draw.size.default;
-	const dimensions = Array.isArray(design.dimensions)
-		? design.dimensions
-		: (designSet.dimensions[design.dimensions ?? 'default'] ??
+	const dimensions =
+		Array.isArray(design.dimensions) ?
+			design.dimensions
+		:	(designSet.dimensions[design.dimensions ?? 'default'] ??
 			designSet.dimensions.default);
 	const [w, h] = dimensions;
 
@@ -93,9 +94,9 @@ export const getSvg = (
 
 	const defaultOutline = 1;
 	const outline =
-		design.outline === true
-			? defaultOutline
-			: (design.outline ?? defaultOutline);
+		design.outline === true ?
+			defaultOutline
+		:	(design.outline ?? defaultOutline);
 	const settings: DesignSettings = {
 		outline,
 		clrSet: design.clrSet,

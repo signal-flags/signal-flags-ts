@@ -55,19 +55,26 @@ for (const [key, flag] of Object.entries(flagSet)) {
 	div = createEl(flagsSquare[key], 'div');
 	td = createEl('');
 	td.append(div);
-	div.style.width = flag.shape === 'pennant' ? '18vw' : flag.shape === 'triangle' ? '12vw' :'9vw';
-	$tr.append(td);
+	div.style.width =
+		flag.shape === 'pennant' ? '18vw'
+		: flag.shape === 'triangle' ? '12vw'
+		: '9vw';
+
+		$tr.append(td);
 
 	div = createEl(flagsLong[key], 'div');
 	td = createEl('');
 	td.append(div);
-	div.style.width = flag.shape === 'pennant' ? '24vw' : '9vw';
+	div.style.width = '24vw';
 	$tr.append(td);
 
 	div = createEl(flagsPrimary[key], 'div');
 	td = createEl('');
 	td.append(div);
-	td.style.background = '#eee'
-	div.style.width = flag.shape === 'pennant' ? '18vw' : '9vw';
+	td.style.background = '#eee';
+	div.style.width =
+		flag.shape === 'pennant' ? '18vw'
+		: flag.shape === 'triangle' ? '12vw'
+		: '9vw';
 	$tr.append(td);
 }
