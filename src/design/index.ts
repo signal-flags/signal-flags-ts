@@ -47,6 +47,27 @@ const toBase64 =
 		(b: string) => Buffer.from(b).toString('base64')
 	:	btoa;
 
+export const overrideDesignDimensions = (designSet: DesignSet, options: DesignOptions, flag: Flag) => {
+	return (
+			options.dimensions ?
+			Array.isArray(options.dimensions) ?
+				// If numerical dimensions are set in the options, use these.
+				options.dimensions
+				// If named dimensions are set in the options, use them if they exist for
+				// the shape or the default.
+			:	(designSet.dimensions[options.dimensions] ?? designSet.dimensions.default)
+		: flag.dimensions ?
+			Array.isArray(flag.dimensions) ?
+				// If numerical dimensions are set in the flag, use these.
+				flag.dimensions
+				// If named dimensions are set in the flag, use them if they exist for
+				// the shape or the default.
+			:	(designSet.dimensions[flag.dimensions] ?? designSet.dimensions.default)
+			// Otherwise just use the default!
+		:	designSet.dimensions.default
+	)
+}
+
 /**
  * Build the SVG for a flag.
  *
@@ -57,7 +78,7 @@ const toBase64 =
  */
 export const getSvg = (
 	flag: Flag,
-	design: DesignOptions,
+	designOptions: DesignOptions,
 	options: BuildOptions,
 ): string => {
 	// Holds the parts of the SVG.
@@ -66,15 +87,10 @@ export const getSvg = (
 	// Get the design for the flag.
 	const designSet = designs[flag.shape];
 
-	// Get the dimensions for this shape.
-	// const [w, h] = Array.isArray(shape)
-	//   ? shape
-	//   : (shape && draw.size[shape]) || draw.size.default;
-	const dimensions =
-		Array.isArray(design.dimensions) ?
-			design.dimensions
-		:	(designSet.dimensions[design.dimensions ?? 'default'] ??
-			designSet.dimensions.default);
+	// Get the dimensions for this shape, using overrides set in the options or in
+	// the flag specification.
+	const dimensions = overrideDesignDimensions(designSet, designOptions, flag, )
+
 	const [w, h] = dimensions;
 
 	if (options.file || options.dataUri) {
@@ -92,12 +108,12 @@ export const getSvg = (
 	// Note that some flags (F) need to know about the outline.
 	const defaultOutline = 1;
 	const outline =
-		design.outline === true ?
+		designOptions.outline === true ?
 			defaultOutline
-		:	(design.outline ?? defaultOutline);
+		:	(designOptions.outline ?? defaultOutline);
 	const settings: DesignSettings = {
 		outline,
-		clrSet: design.clrSet,
+		clrSet: designOptions.clrSet,
 		dimensions,
 	};
 

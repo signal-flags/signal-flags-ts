@@ -89,6 +89,13 @@ export const flagSet: FlagSet = {
 		n: 2,
 	},
 
+	m: {
+		category: 'ics',
+		shape: 'rectangle',
+		design: 'saltire',
+		clrs: ['white', 'blue'],
+	},
+
 	n: {
 		category: 'rrs',
 		shape: 'rectangle',
@@ -118,6 +125,13 @@ export const flagSet: FlagSet = {
 		clrs: ['yellow'],
 	},
 
+	r: {
+		category: 'ics',
+		shape: 'rectangle',
+		design: 'cross',
+		clrs: ['yellow', 'red'],
+	},
+
 	s: {
 		category: 'ics',
 		shape: 'rectangle',
@@ -140,11 +154,39 @@ export const flagSet: FlagSet = {
 		n: 2,
 	},
 
+	v: {
+		category: 'rrs',
+		shape: 'rectangle',
+		design: 'saltire',
+		clrs: ['red', 'white'],
+		n: 2,
+	},
+
 	w: {
 		category: 'ics',
 		shape: 'rectangle',
 		design: 'border',
 		clrs: ['red', 'white', 'blue'],
+	},
+
+	x: {
+		category: 'ics',
+		shape: 'rectangle',
+		design: 'cross',
+		clrs: ['blue', 'white'],
+	},
+
+	y: {
+		category: 'ics',
+		shape: 'rectangle',
+		design: 'diagonalStripes',
+		clrs: ['yellow', 'red'],
+	},
+	z: {
+		category: 'ics',
+		shape: 'rectangle',
+		design: 'diagonalQuarters',
+		clrs: ['yellow', 'black', 'blue', 'red'],
 	},
 
 	n0: {
@@ -175,11 +217,47 @@ export const flagSet: FlagSet = {
 		clrs: ['red', 'white', 'blue'],
 	},
 
+	n4: {
+		category: 'ics',
+		shape: 'pennant',
+		design: 'nordic',
+		clrs: ['white', 'red'],
+	},
+
 	n5: {
 		category: 'ics',
 		shape: 'pennant',
 		design: 'vertical',
 		clrs: ['yellow', 'blue'],
+	},
+
+	n6: {
+		category: 'ics',
+		shape: 'pennant',
+		design: 'horizontal',
+		clrs: ['black', 'white'],
+	},
+
+	n7: {
+		category: 'ics',
+		shape: 'pennant',
+		design: 'horizontal',
+		clrs: ['yellow', 'red'],
+	},
+
+	n8: {
+		category: 'ics',
+		shape: 'pennant',
+		design: 'nordic',
+		clrs: ['red', 'white'],
+	},
+
+	// Need to change spec.
+	n9: {
+		category: 'ics',
+		shape: 'pennant',
+		design: 'quarters',
+		clrs: ['white', 'black', 'red', 'yellow'],
 	},
 
 	ap: {
@@ -189,7 +267,6 @@ export const flagSet: FlagSet = {
 		clrs: ['red', 'white', 'red', 'white', 'red'],
 	},
 
-	
 	s1: {
 		category: 'ics',
 		shape: 'triangle',
@@ -275,6 +352,40 @@ export const flagSet: FlagSet = {
 		shape: 'rectangle',
 		design: 'solid',
 		clrs: ['yellow'],
+	},
+
+	plus: {
+		category: 'rrs',
+		shape: 'rectangle',
+		design: 'plus',
+		dimensions: 'card',
+		clrs: ['black', 'white'],
+	},
+
+	minus: {
+		category: 'rrs',
+		shape: 'rectangle',
+		design: 'minus',
+		dimensions: 'card',
+		clrs: ['black', 'white'],
+	},
+
+	toPort: {
+		slug: 'to-port',
+		category: 'rrs',
+		shape: 'rectangle',
+		design: 'triangle',
+		dimensions: 'card',
+		clrs: ['red', 'white'],
+	},
+
+	toStarboard: {
+		slug: 'to-starboard',
+		category: 'rrs',
+		shape: 'rectangle',
+		design: 'rectangle',
+		dimensions: 'card',
+		clrs: ['green', 'white'],
 	},
 
 	blackAndWhiteCheck: {

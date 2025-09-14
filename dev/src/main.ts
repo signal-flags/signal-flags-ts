@@ -78,3 +78,8 @@ for (const [key, flag] of Object.entries(flagSet)) {
 		: '8vw';
 	$tr.append(td);
 }
+/*
+const $pre = document.createElement('pre');
+$pre.innerText = JSON.stringify(flags, null, 2);
+$app?.append($pre);
+*/
