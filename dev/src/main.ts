@@ -58,9 +58,9 @@ for (const [key, flag] of Object.entries(flagSet)) {
 	div.style.width =
 		flag.shape === 'pennant' ? '18vw'
 		: flag.shape === 'triangle' ? '12vw'
-		: '9vw';
+		: '8vw';
 
-		$tr.append(td);
+	$tr.append(td);
 
 	div = createEl(flagsLong[key], 'div');
 	td = createEl('');
@@ -75,6 +75,6 @@ for (const [key, flag] of Object.entries(flagSet)) {
 	div.style.width =
 		flag.shape === 'pennant' ? '18vw'
 		: flag.shape === 'triangle' ? '12vw'
-		: '9vw';
+		: '8vw';
 	$tr.append(td);
 }

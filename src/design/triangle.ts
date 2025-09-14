@@ -49,7 +49,8 @@ const horizontal: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 export const triangle: DesignSet = {
 	// Dimensions must be divisble by 30.
 	dimensions: {
-		default: [360, 270],
+		// default: [360, 270],
+		default: [360, 240],
 	},
 
 	outline,

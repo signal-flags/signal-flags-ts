@@ -20,6 +20,52 @@ const outline: OutlineFunction = ({ dimensions, clrSet, outline }) => {
 };
 
 /**
+ * Draw a border design (e.g. P, W).
+ *
+ * @param flag Flag settings.
+ * @param settings Design settings.
+ * @returns
+ */
+const border: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
+	const [w, h] = dimensions;
+	const parts = [];
+	const { length } = clrs;
+
+	// Draw the border(s) from the outside in.
+	// xbw and ybw are the border widths in the x and y dimension.
+	let xbw, ybw;
+	if (length === 2) {
+		if (w === h) {
+			// This factor is close to the US Navy spec.
+			ybw = h * 0.32;
+			xbw = w * 0.32;
+		} else {
+			// This factor works well for rectangular P and S flags.
+			ybw = h * 0.25;
+			xbw = w * 0.25;
+		}
+	} else {
+		ybw = h / (length * 2);
+		xbw = w / (length * 2);
+	}
+	let xb = 0;
+	let yb = 0;
+	for (let i = clrs.length - 1; i > 0; i--) {
+		parts.push(`<path fill="${getColour(clrs[i], clrSet)}" d="M${xb},${yb}`);
+		parts.push(`H${w - xb}V${h - yb}H${xb}Z`);
+		xb += xbw;
+		yb += ybw;
+		// Draw the 'hole' anti-clockwise so it does not fill.
+		parts.push(`M${xb},${yb}`);
+		parts.push(`V${h - yb}H${w - xb}V${yb}Z"/>`);
+	}
+	// Draw the centre.
+	parts.push(`<path fill="${getColour(clrs[0], clrSet)}" d="M${xb},${yb}`);
+	parts.push(`H${w - xb}V${h - yb}H${xb}Z"/>`);
+	return parts.join('');
+};
+
+/**
  * Draw a flag with diagonal halves (e.g. O).
  *
  * @param flag Flag settings.
@@ -71,6 +117,33 @@ const check: DrawFunction = ({ clrs, n }, { dimensions, clrSet }) => {
 		parts.push(`V${y}H${w}`);
 	}
 	parts.push(`V${0}"/>`);
+	return parts.join('');
+};
+
+/**
+ * Draw a flag with a circle (i.e. I).
+ *
+ * @param flag Flag settings.
+ * @param settings Design settings.
+ * @returns
+ */
+const circle: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
+	const [w, h] = dimensions;
+	const parts = [];
+
+	// Radius - smaller on square flags to match USN spec, otherwise match flag of Japan.
+	const r = w === h ? h * 0.2 : h * 0.3;
+
+	// Draw a rectangle background.
+	parts.push(`<path fill="${getColour(clrs[1], clrSet)}"`);
+	parts.push(` d="M0,0H${w}V${h}H0Z`);
+	// Draw the cut out centre anti-clockwise so it doesn't fill.
+	parts.push(`M${w / 2},${h / 2 - r}`);
+	parts.push(`A${r},${r} 0 0 0 ${w / 2 - r},${h / 2}`);
+	parts.push(`A${r},${r} 0 1 0 ${w / 2},${h / 2 - r}"/>`);
+	// Draw the centre.
+	parts.push(`<circle fill="${getColour(clrs[0], clrSet)}"`);
+	parts.push(` cx="${w / 2}" cy="${h / 2}" r="${r}"/>`);
 	return parts.join('');
 };
 
@@ -167,20 +240,45 @@ const solid: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	return `<path fill="${getColour(clrs[0], clrSet)}" d="M0,0H${w}V${h}H0Z"/>`;
 };
 
+/**
+ * Draw a flag with vertical stripes (e.g. G).
+ *
+ * @param flag Flag settings.
+ * @param settings Design settings.
+ * @returns
+ */
+const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
+	const [w, h] = dimensions;
+    // Stripe width.
+    const sw = w / clrs.length;
+    const parts = [];
+    // l is the left edge of the stripe.
+    for (let l = 0; l < w; l += sw) {
+      parts.push(`<path fill="${getColour(clrs[l / sw], clrSet)}"`);
+      parts.push(` d="M${l},0H${l + sw}V${h}H${l}Z"/>`);
+    }
+    return parts.join('');
+  };
+
 export const rectangle: DesignSet = {
-	// Dimensions must be divisible by 90.
+	// Dimensions must be divisible by ?90.
 	dimensions: {
-		default: [360, 270], // [240, 180],
-		square: [270, 270], // [180, 180],
+		default: [360, 240], // [240, 180],
+		// default: [360, 270], // [240, 180],
+		square: [240, 240], // [180, 180],
+		// square: [270, 270], // [180, 180],
 	},
 
 	outline,
 
 	designs: {
 		check,
+		circle,
+		border,
 		diamond,
 		diagonalHalves,
 		horizontal,
+		vertical,
 		solid,
 	},
 };

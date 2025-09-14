@@ -79,19 +79,17 @@ export const getSvg = (
 
 	if (options.file || options.dataUri) {
 		// Add the xml declaration for a file.
-		parts.push('<?xml version="1.0" encoding="UTF-8"?>\n');
+		parts.push('<?xml version="1.0" encoding="UTF-8" ?>');
+		parts.push(
+			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">`,
+		);
+	} else {
+		// Just the svg tag for a DOM node (the xmlms attribute is not required in
+		// HTML 5).
+		parts.push(`<svg viewBox="0 0 ${w} ${h}">`);
 	}
-	// Add the declaration and outer <svg> element.
-	parts.push(
-		`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">`,
-	);
 
-	// Add the tags for each part of the design.
-	// shape.designs[flag.design](part) => {
-	// Remember some flags (F) need to know about the outline.
-	// parts.push(draw[part[0]](part, { w, h, colors, outline }));
-	// });
-
+	// Note that some flags (F) need to know about the outline.
 	const defaultOutline = 1;
 	const outline =
 		design.outline === true ?
