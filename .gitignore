@@ -1,10 +1,5 @@
 # .gitignore
 
-lib
-
-# Builds
-dist
-
 # Logs
 logs
 *.log

@@ -5,7 +5,7 @@ describe('Package metadata', () => {
 	test('version should match package.json', () => {
 		expect(version).toBe(pkg.version);
 	});
-	test('generatpr should match package.homepage', () => {
+	test('generator should match pkg.homepage', () => {
 		expect(generator).toBe(pkg.homepage);
 	});
 });

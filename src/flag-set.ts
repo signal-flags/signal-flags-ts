@@ -2,7 +2,7 @@ import { type Flag } from './flag';
 
 export type FlagSet = Record<string, Flag>;
 
-export const flagSet: FlagSet = {
+export const flags: FlagSet = {
 	a: {
 		category: 'ics',
 		shape: 'swallowtail',

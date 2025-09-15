@@ -1,5 +1,5 @@
 import { type Flag } from './flag';
-import { flagSet as defaultFlagSet, type FlagSet } from './flag-set';
+import { flags as defaultFlagSet, type FlagSet } from './flag-set';
 
 import { getSvg, type DesignOptions, type BuildOptions } from './design';
 import { version, generator } from './meta';
@@ -9,25 +9,29 @@ export { getSvg };
 export type FilterFunction = (flag: Flag) => boolean;
 
 const getGenerateMeta = () => {
-	return { version, generator, generated: new Date().toISOString() };
+	return { generator, version, generated: new Date().toISOString() };
 };
 
 /**
  * Generate default svg for all flags.
  *
- * @param flagSet
+ * @param flags
  * @param design
  * @param build
  * @returns
  */
 export const allSvg = (
-	flagSet: FlagSet = defaultFlagSet,
-	design: DesignOptions = {},
-	build: BuildOptions = {},
+	flags: FlagSet | null = defaultFlagSet,
+	designOptions: DesignOptions | null = {},
+	buildOptions: BuildOptions = {},
 ) => {
+	flags = flags ?? defaultFlagSet;
+	designOptions = designOptions ?? {};
+	buildOptions = buildOptions ?? {};
+
 	const all: Record<string, string> = {};
-	for (const [key, flag] of Object.entries(flagSet)) {
-		all[key] = getSvg(flag, design, build);
+	for (const [key, flag] of Object.entries(flags)) {
+		all[key] = getSvg(flag, designOptions, buildOptions);
 	}
 	return all;
 };
@@ -35,20 +39,24 @@ export const allSvg = (
 /**
  * Generate svg for a filtered subset of flags in a set.
  *
- * @param flagSet Source flagset.
+ * @param flags Source flagset.
  * @param designOptions
  * @param buildOptions
  * @param filter Filter function.
  * @returns
  */
 export const someSvg = (
-	flagSet: FlagSet = defaultFlagSet,
-	designOptions: DesignOptions = {},
-	buildOptions: BuildOptions = {},
+	flags: FlagSet | null,
+	designOptions: DesignOptions | null,
+	buildOptions: BuildOptions | null,
 	filter: FilterFunction,
 ) => {
+	flags = flags ?? defaultFlagSet;
+	designOptions = designOptions ?? {};
+	buildOptions = buildOptions ?? {};
+
 	const some: Record<string, string> = {};
-	for (const [key, flag] of Object.entries(flagSet)) {
+	for (const [key, flag] of Object.entries(flags)) {
 		if (!filter(flag)) continue;
 		some[key] = getSvg(flag, designOptions, buildOptions);
 	}
@@ -57,16 +65,17 @@ export const someSvg = (
 
 /**
  * Generate default flags.
- * @param flagSet
+ * @param flags
  * @param buildOptions
  * @returns
  */
 export const generateDefault = (
-	flagSet: FlagSet = defaultFlagSet,
+	flags: FlagSet | null = defaultFlagSet,
 	buildOptions: BuildOptions = {},
 ) => {
+	flags = flags ?? defaultFlagSet;
 	const meta = getGenerateMeta();
-	const flags = flagSet;
+	flags = flags ?? defaultFlagSet;
 	const options: DesignOptions = {};
 	const svg = allSvg(flags, options, buildOptions);
 	return { meta, flags, options, svg };
@@ -75,16 +84,16 @@ export const generateDefault = (
 /**
  * Generate all long pennants.
  *
- * @param flagSet
+ * @param flags
  * @param buildOptions
  * @returns
  */
 export const generateLong = (
-	flagSet: FlagSet = defaultFlagSet,
+	flags: FlagSet | null = defaultFlagSet,
 	buildOptions: BuildOptions = {},
 ) => {
+	flags = flags ?? defaultFlagSet;
 	const meta = getGenerateMeta();
-	const flags = flagSet;
 	const options: DesignOptions = {
 		dimensions: {
 			// Make `long` the default for pennants.
@@ -102,16 +111,16 @@ export const generateLong = (
 
 /**
  * Generate all flags with square alphabet flags.
- * @param flagSet
+ * @param flags
  * @param buildOptions
  * @returns
  */
 export const generateSquare = (
-	flagSet: FlagSet = defaultFlagSet,
+	flags: FlagSet | null = defaultFlagSet,
 	buildOptions: BuildOptions = {},
 ) => {
+	flags = flags ?? defaultFlagSet;
 	const meta = getGenerateMeta();
-	const flags = flagSet;
 	const options: DesignOptions = {
 		dimensions: {
 			// Make `square` the default for rectangles.
@@ -126,16 +135,16 @@ export const generateSquare = (
  * Generate hideous primary coloured flags with no outlines which WikiPedia
  * seems to like.
  *
- * @param flagSet
+ * @param flags
  * @param buildOptions
  * @returns
  */
 export const generatePrimary = (
-	flagSet: FlagSet = defaultFlagSet,
+	flags: FlagSet | null = defaultFlagSet,
 	buildOptions: BuildOptions = {},
 ) => {
+	flags = flags ?? defaultFlagSet;
 	const meta = getGenerateMeta();
-	const flags = flagSet;
 	const options: DesignOptions = {
 		dimensions: {
 			// Make `square` the default for rectangles.

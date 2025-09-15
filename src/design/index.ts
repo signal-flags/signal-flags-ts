@@ -15,7 +15,7 @@ export interface BuildOptions {
 
 export interface DesignOptions {
 	// dimensions?: Record<FlagShape, Record<string, string | number[]>>;
-	dimensions?: Record<string, Record<string, string>>;
+	dimensions?: Record<string, Record<string, string | number[]>>;
 	outline?: number | boolean;
 	clrSet?: string | Record<string, string>;
 }
@@ -91,8 +91,8 @@ export const getNumericalDimensions = (
  */
 export const getSvg = (
 	flag: Flag,
-	designOptions: DesignOptions,
-	options: BuildOptions,
+	designOptions: DesignOptions = {},
+	options: BuildOptions = {},
 ): string => {
 	// Holds the parts of the SVG.
 	const parts = [];
@@ -108,7 +108,7 @@ export const getSvg = (
 
 	if (options.file || options.dataUri) {
 		// Add the xml declaration for a file.
-		parts.push('<?xml version="1.0" encoding="UTF-8" ?>');
+		parts.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
 		parts.push(
 			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">`,
 		);

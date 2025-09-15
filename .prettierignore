@@ -1,10 +1,6 @@
 # .prettierignore
 
 package-lock.json
-lib
-
-# Builds
-dist
 
 # Logs
 logs

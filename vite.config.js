@@ -10,10 +10,13 @@ export default defineConfig({
 			entry: resolve(__dirname, 'src/signal-flags.ts'),
 			formats: ['es', 'iife'],
 			name: 'SignalFlags',
-			// the proper extensions will be added
-			fileName: 'signal-flags',
 		},
 		rollupOptions: {},
 		sourcemap: true,
+	},
+
+	test: {
+		include: ['{src,test}/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
+		globals: true,
 	},
 });

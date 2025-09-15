@@ -1,5 +1,6 @@
 import './style.css';
 import {
+	getSvg,
 	flags,
 	generateDefault,
 	generateLong,
@@ -12,6 +13,16 @@ const createEl = (html: string, el = 'td') => {
 	child.innerHTML = html;
 	return child;
 };
+
+{
+	// Test the README example.
+	const svg = getSvg(flags.ap, {
+		dimensions: { pennant: { default: [720, 80, 20] } },
+	});
+	const div = document.createElement('pre');
+	div.innerHTML = svg;
+	document.body.prepend(div);
+}
 
 const svg = generateDefault().svg;
 const svgLong = generateLong().svg;
