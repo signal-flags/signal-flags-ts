@@ -1,11 +1,11 @@
 import './style.css';
 import {
 	flags,
-	allSvg,
+	generateDefault,
 	generateLong,
 	generatePrimary,
 	generateSquare,
-} from '../../src';
+} from '../../src/signal-flags';
 
 const createEl = (html: string, el = 'td') => {
 	const child = document.createElement(el);
@@ -13,10 +13,10 @@ const createEl = (html: string, el = 'td') => {
 	return child;
 };
 
-const svg = allSvg();
-const svgLong = generateLong();
-const svgSquare = generateSquare();
-const svgPrimary = generatePrimary();
+const svg = generateDefault().svg;
+const svgLong = generateLong().svg;
+const svgSquare = generateSquare().svg;
+const svgPrimary = generatePrimary().svg;
 
 const $app = document.querySelector<HTMLDivElement>('#app');
 

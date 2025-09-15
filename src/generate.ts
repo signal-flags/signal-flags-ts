@@ -2,10 +2,15 @@ import { type Flag } from './flag';
 import { flagSet as defaultFlagSet, type FlagSet } from './flag-set';
 
 import { getSvg, type DesignOptions, type BuildOptions } from './design';
+import { version, generator } from './meta';
 
 export { getSvg };
 
 export type FilterFunction = (flag: Flag) => boolean;
+
+const getGenerateMeta = () => {
+	return { version, generator, generated: new Date().toISOString() };
+};
 
 /**
  * Generate default svg for all flags.
@@ -51,6 +56,23 @@ export const someSvg = (
 };
 
 /**
+ * Generate default flags.
+ * @param flagSet
+ * @param buildOptions
+ * @returns
+ */
+export const generateDefault = (
+	flagSet: FlagSet = defaultFlagSet,
+	buildOptions: BuildOptions = {},
+) => {
+	const meta = getGenerateMeta();
+	const flags = flagSet;
+	const options: DesignOptions = {};
+	const svg = allSvg(flags, options, buildOptions);
+	return { meta, flags, options, svg };
+};
+
+/**
  * Generate all long pennants.
  *
  * @param flagSet
@@ -60,19 +82,23 @@ export const someSvg = (
 export const generateLong = (
 	flagSet: FlagSet = defaultFlagSet,
 	buildOptions: BuildOptions = {},
-) =>
-	someSvg(
-		flagSet,
-		{
-			dimensions: {
-				// Make `long` the default for pennants.
-				pennant: { default: 'long' },
-			},
+) => {
+	const meta = getGenerateMeta();
+	const flags = flagSet;
+	const options: DesignOptions = {
+		dimensions: {
+			// Make `long` the default for pennants.
+			pennant: { default: 'long' },
 		},
-		buildOptions,
-		// Generate only pennants.
+	};
+	const svg = someSvg(
+		flags,
+		options,
+		buildOptions, // Generate only pennants.
 		({ shape }) => shape === 'pennant',
 	);
+	return { meta, flags, options, svg };
+};
 
 /**
  * Generate all flags with square alphabet flags.
@@ -83,17 +109,18 @@ export const generateLong = (
 export const generateSquare = (
 	flagSet: FlagSet = defaultFlagSet,
 	buildOptions: BuildOptions = {},
-) =>
-	allSvg(
-		flagSet,
-		{
-			dimensions: {
-				// Make `square` the default for rectangles.
-				rectangle: { default: 'square' },
-			},
+) => {
+	const meta = getGenerateMeta();
+	const flags = flagSet;
+	const options: DesignOptions = {
+		dimensions: {
+			// Make `square` the default for rectangles.
+			rectangle: { default: 'square' },
 		},
-		buildOptions,
-	);
+	};
+	const svg = allSvg(flags, options, buildOptions);
+	return { meta, flags, options, svg };
+};
 
 /**
  * Generate hideous primary coloured flags with no outlines which WikiPedia
@@ -106,20 +133,24 @@ export const generateSquare = (
 export const generatePrimary = (
 	flagSet: FlagSet = defaultFlagSet,
 	buildOptions: BuildOptions = {},
-) =>
-	someSvg(
-		flagSet,
-		{
-			dimensions: {
-				// Make `square` the default for rectangles.
-				rectangle: { default: 'square' },
-			},
-			// Use the `primary` colour set.
-			clrSet: 'primary',
-			// No outlines.
-			outline: false,
+) => {
+	const meta = getGenerateMeta();
+	const flags = flagSet;
+	const options: DesignOptions = {
+		dimensions: {
+			// Make `square` the default for rectangles.
+			rectangle: { default: 'square' },
 		},
-		// Generate only ics flags and pennants.
+		// Use the `primary` colour set.
+		clrSet: 'primary',
+		// No outlines.
+		outline: false,
+	};
+	const svg = someSvg(
+		flags,
+		options,
 		buildOptions,
 		({ category }) => category === 'ics',
 	);
+	return { meta, flags, options, svg };
+};

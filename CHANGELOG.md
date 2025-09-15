@@ -2,7 +2,7 @@
 
 Generate SVG for flags from the International Code of Signals and Racing Rules of Sailing.
 
-## [4.0.0] - 2023-03-05
+## [4.0.0] - 2025-09-15
 
 ### Designs: fixed
 

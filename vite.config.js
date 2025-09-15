@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
 	build: {
 		lib: {
-			entry: resolve(__dirname, 'src/index.ts'),
+			entry: resolve(__dirname, 'src/signal-flags.ts'),
 			formats: ['es', 'iife'],
 			name: 'SignalFlags',
 			// the proper extensions will be added
