@@ -1,6 +1,6 @@
 import './style.css';
 import {
-	flagSet,
+	flags,
 	allSvg,
 	generateLong,
 	generatePrimary,
@@ -13,10 +13,10 @@ const createEl = (html: string, el = 'td') => {
 	return child;
 };
 
-const flags = allSvg();
-const flagsLong = generateLong();
-const flagsSquare = generateSquare();
-const flagsPrimary = generatePrimary();
+const svg = allSvg();
+const svgLong = generateLong();
+const svgSquare = generateSquare();
+const svgPrimary = generatePrimary();
 
 const $app = document.querySelector<HTMLDivElement>('#app');
 
@@ -38,7 +38,7 @@ $tr.append(createEl('Square', 'th'));
 $tr.append(createEl('Long', 'th'));
 $tr.append(createEl('Primary', 'th'));
 
-for (const [key, flag] of Object.entries(flagSet)) {
+for (const [key, flag] of Object.entries(flags)) {
 	const $tr = document.createElement('tr');
 	$tbody.append($tr);
 	$tr.append(createEl(key));
@@ -46,13 +46,13 @@ for (const [key, flag] of Object.entries(flagSet)) {
 
 	$tr.append(createEl(flag.category));
 
-	let div = createEl(flags[key], 'div');
+	let div = createEl(svg[key], 'div');
 	let td = createEl('');
 	td.append(div);
 	div.style.width = flag.shape === 'pennant' ? '18vw' : '12vw';
 	$tr.append(td);
 
-	div = createEl(flagsSquare[key], 'div');
+	div = createEl(svgSquare[key], 'div');
 	td = createEl('');
 	td.append(div);
 	div.style.width =
@@ -62,13 +62,13 @@ for (const [key, flag] of Object.entries(flagSet)) {
 
 	$tr.append(td);
 
-	div = createEl(flagsLong[key], 'div');
+	div = createEl(svgLong[key], 'div');
 	td = createEl('');
 	td.append(div);
 	div.style.width = '24vw';
 	$tr.append(td);
 
-	div = createEl(flagsPrimary[key], 'div');
+	div = createEl(svgPrimary[key], 'div');
 	td = createEl('');
 	td.append(div);
 	td.style.background = '#eee';

@@ -1,4 +1,4 @@
-export { flagSet } from './flag-set';
+export { flagSet as flags } from './flag-set';
 export {
 	getSvg,
 	allSvg,
@@ -7,3 +7,4 @@ export {
 	generatePrimary,
 	generateSquare,
 } from './generate';
+export { version } from '../package.json';

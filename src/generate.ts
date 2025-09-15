@@ -8,7 +8,7 @@ export { getSvg };
 export type FilterFunction = (flag: Flag) => boolean;
 
 /**
- * Generate svg for all flags in a set.
+ * Generate default svg for all flags.
  *
  * @param flagSet
  * @param design
@@ -50,6 +50,13 @@ export const someSvg = (
 	return some;
 };
 
+/**
+ * Generate all long pennants.
+ *
+ * @param flagSet
+ * @param buildOptions
+ * @returns
+ */
 export const generateLong = (
 	flagSet: FlagSet = defaultFlagSet,
 	buildOptions: BuildOptions = {},
@@ -67,6 +74,12 @@ export const generateLong = (
 		({ shape }) => shape === 'pennant',
 	);
 
+/**
+ * Generate all flags with square alphabet flags.
+ * @param flagSet
+ * @param buildOptions
+ * @returns
+ */
 export const generateSquare = (
 	flagSet: FlagSet = defaultFlagSet,
 	buildOptions: BuildOptions = {},
@@ -82,6 +95,14 @@ export const generateSquare = (
 		buildOptions,
 	);
 
+/**
+ * Generate hideous primary coloured flags with no outlines which WikiPedia
+ * seems to like.
+ *
+ * @param flagSet
+ * @param buildOptions
+ * @returns
+ */
 export const generatePrimary = (
 	flagSet: FlagSet = defaultFlagSet,
 	buildOptions: BuildOptions = {},

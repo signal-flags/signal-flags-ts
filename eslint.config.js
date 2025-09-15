@@ -4,6 +4,8 @@ import tseslint from 'typescript-eslint';
 import json from '@eslint/json';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
+import vitest from '@vitest/eslint-plugin';
+
 export default defineConfig([
 	globalIgnores(['dist/**/*']),
 	{
@@ -25,5 +27,20 @@ export default defineConfig([
 		plugins: { json },
 		language: 'json/jsonc',
 		extends: ['json/recommended'],
+	},
+	{
+		// update this to match your test files
+		files: ['**/*.spec.js', '**/*.test.js'],
+		plugins: {
+			vitest,
+		},
+		rules: {
+			...vitest.configs.recommended.rules, // you can also use vitest.configs.all.rules to enable all rules
+		},
+		languageOptions: {
+			globals: {
+				...vitest.environments.env.globals,
+			},
+		},
 	},
 ]);

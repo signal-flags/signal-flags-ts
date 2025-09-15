@@ -1,4 +1,6 @@
-# .gitignore
+# .prettierignore
+
+package-lock.json
 
 # Builds
 dist

@@ -1,5 +1,19 @@
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 export default defineConfig({
-	root: './dev',
+	build: {
+		lib: {
+			entry: resolve(__dirname, 'src/index.ts'),
+			formats: ['es', 'iife'],
+			name: 'SignalFlags',
+			// the proper extensions will be added
+			fileName: 'signal-flags',
+		},
+		rollupOptions: {},
+		sourcemap: true,
+	},
 });
