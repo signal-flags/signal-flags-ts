@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.1.0](https://github.com/signal-flags/signal-flags-ts/tree/v4.1.0) - _2025-09-16_
+## [4.1.1](https://github.com/signal-flags/signal-flags-ts/tree/v4.1.1) - _2025-09-16_
 
 ### Design changes
 
