@@ -20,7 +20,7 @@ const outline: OutlineFunction = ({ dimensions, clrSet, outline }) => {
 };
 
 /**
- * Draw a border design (e.g. P, W).
+ * Draw a flag with one or more borders (e.g. P, W).
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -37,16 +37,17 @@ const border: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	if (length === 2) {
 		if (w === h) {
 			// This factor is close to the US Navy spec.
-			ybw = h * 0.32;
 			xbw = w * 0.32;
+			ybw = h * 0.32;
 		} else {
 			// This factor works well for rectangular P and S flags.
-			ybw = h * 0.25;
 			xbw = w * 0.25;
+			ybw = h * 0.25;
 		}
 	} else {
-		ybw = h / (length * 2);
-		xbw = w / (length * 2);
+		// Round these down to 0.5 to avoid long decimals.
+		ybw = Math.floor((h / (length * 2)) * 2) / 2;
+		xbw = ybw;
 	}
 	let xb = 0;
 	let yb = 0;
@@ -199,22 +200,24 @@ const diamond: DrawFunction = ({ clrs }, { dimensions, outline, clrSet }) => {
 //---------------------------------------------------------------------------
 
 /**
- * Draw a diamond flag (e.g. F).
+ * Draw a cross flag (e.g. R).
  *
  * @param flag Flag settings.
  * @param settings Design settings.
  * @returns
  */
 const cross: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
+	// REVISIT the way this is drawn could be improved to be a background with a
+	// cut-out and a single foreground.
+
 	const [w, h] = dimensions;
 	const parts = [];
-	// Standard cross width is 1/5 of the height of the flag; this means x and y need
-	// to be carefully chosen to avoid long fractions.
-	const x0 = h / 5;
+	// Make the cross width 1/5th of the mean side length.
+	const x0 = Math.floor((w + h) / 10);
 	const y0 = x0;
 	const x1 = (w - x0) / 2;
 	const y1 = (h - y0) / 2;
-	// Draw the two limbs of the cross - it doesn't matter that they intersect.
+	// Draw the two limbs of the cross.
 	parts.push(`<path fill="${getColour(clrs[0], clrSet)}" d="`);
 	parts.push(`M${x1},0H${x1 + x0}V${h}H${x1}Z`);
 	parts.push(`M0,${y1}H${w}V${y1 + y0}H${0}Z"/>`);
@@ -228,7 +231,7 @@ const cross: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 /**
- * Draw a diamond flag (e.g. F).
+ * Draw a minus card (decrease).
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -259,7 +262,7 @@ const minus: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 /**
- * Draw a diamond flag (e.g. F).
+ * Draw a plus card (increase).
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -294,7 +297,7 @@ const plus: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 /**
- * Draw a diamond flag (e.g. F).
+ * Draw a card with an inner rectangle: toStarboard.
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -322,7 +325,7 @@ const innerRectangle: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 /**
- * Draw a diamond flag (e.g. F).
+ * Draw a saltire flag e.g. M.
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -349,7 +352,7 @@ const saltire: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 /**
- * Draw a diamond flag (e.g. F).
+ * Draw a card with a triangle: toPort.
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -377,7 +380,7 @@ const triangle: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 /**
- * Draw a diamond flag (e.g. F).
+ * Draw a flag with diagonal quarters: Z.
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -406,7 +409,7 @@ const diagonalQuarters: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 /**
- * Draw a diamond flag (e.g. F).
+ * Draw a flag with diagonal stripes: Y.
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -457,7 +460,7 @@ const diagonalStripes: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 //---------------------------------------------------------------------------
 
 /**
- * Draw a flag with a solid background (e.g. O).
+ * Draw a flag with horizontal stripes e.g. C.
  *
  * @param flag Flag settings.
  * @param settings Design settings.
@@ -509,26 +512,35 @@ const solid: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
  */
 const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h] = dimensions;
-	// Stripe width.
-	const sw = w / clrs.length;
+	// Stripe width, rounded down to 0.5 to avoid long decimals.
+	const sw = Math.floor((w / clrs.length) * 2) / 2;
 	const parts = [];
-	// l is the left edge of the stripe.
-	for (let l = 0; l < w; l += sw) {
-		parts.push(`<path fill="${getColour(clrs[l / sw], clrSet)}"`);
+	// Draw all but the last stripe: l is the left edge of the stripe.
+	let l = 0;
+	let i = 0;
+	for (; i < clrs.length - 1; i++) {
+		parts.push(`<path fill="${getColour(clrs[i], clrSet)}"`);
 		parts.push(` d="M${l},0H${l + sw}V${h}H${l}Z"/>`);
+		l += sw;
 	}
+	// Draw the last stripe.
+	parts.push(`<path fill="${getColour(clrs[i], clrSet)}"`);
+	parts.push(` d="M${l},0H${w}V${h}H${l}Z"/>`);
+
 	return parts.join('');
 };
 
 export const rectangle: DesignSet = {
 	// Dimensions must be divisible by ?90.
 	dimensions: {
-		// Default 2:3 rectangle.
+		// Default 3:2 rectangle.
 		default: [360, 240],
 		// 1:1 alternative.
-		square: [240, 240], // [180, 180],
+		square: [240, 240],
+		// 4:3 alternative.
+		short: [320, 240],
 		// 3:4 (portrait).
-		card: [270, 360], // [180, 180],
+		card: [180, 240],
 	},
 
 	outline,

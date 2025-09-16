@@ -12,4 +12,5 @@ export {
 	generateLong,
 	generatePrimary,
 	generateSquare,
+	generateShort,
 } from './generate';

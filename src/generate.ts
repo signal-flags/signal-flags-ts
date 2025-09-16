@@ -110,6 +110,39 @@ export const generateLong = (
 };
 
 /**
+ * Generate all short pennants.
+ *
+ * @param flags
+ * @param buildOptions
+ * @returns
+ */
+export const generateShort = (
+	flags: FlagSet | null = defaultFlagSet,
+	buildOptions: BuildOptions = {},
+) => {
+	flags = flags ?? defaultFlagSet;
+	const meta = getGenerateMeta();
+	const options: DesignOptions = {
+		dimensions: {
+			// Make `short` the default for pennants, rectangles, swallowtails and
+			// triangles.
+			pennant: { default: 'short' },
+			rectangle: { default: 'short' },
+			swallowtail: { default: 'short' },
+			triangle: { default: 'short' },
+		},
+	};
+	const svg = allSvg(
+		// const svg = someSvg(
+		flags,
+		options,
+		buildOptions, // Generate only pennants.
+		// ({ shape }) => shape === 'pennant',
+	);
+	return { meta, flags, options, svg };
+};
+
+/**
  * Generate all flags with square alphabet flags.
  * @param flags
  * @param buildOptions
@@ -123,8 +156,9 @@ export const generateSquare = (
 	const meta = getGenerateMeta();
 	const options: DesignOptions = {
 		dimensions: {
-			// Make `square` the default for rectangles.
+			// Make `square` the default for rectangles and swallowtails.
 			rectangle: { default: 'square' },
+			swallowtail: { default: 'square' },
 		},
 	};
 	const svg = allSvg(flags, options, buildOptions);
@@ -147,8 +181,9 @@ export const generatePrimary = (
 	const meta = getGenerateMeta();
 	const options: DesignOptions = {
 		dimensions: {
-			// Make `square` the default for rectangles.
+			// Make `square` the default for rectangles and swallowtails.
 			rectangle: { default: 'square' },
+			swallowtail: { default: 'square' },
 		},
 		// Use the `primary` colour set.
 		clrSet: 'primary',

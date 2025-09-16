@@ -31,9 +31,9 @@ const border: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const parts = [];
 
 	const h2 = h / 2;
-	// The factor in xi must be half that in yi. Note the similarity to vertical.
-	const yi = h / 4.8;
-	const xi = w / 2.4;
+	// The factor in xi must be half that in yi.
+	const yi = h / 5;
+	const xi = w / 2.5;
 
 	// Draw the inner part.
 	parts.push(`<path fill="${getColour(clrs[0], clrSet)}"`);
@@ -57,18 +57,19 @@ const horizontal: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h] = dimensions;
 	const parts = [];
 
-	const yi = h / clrs.length;
+	// Work out the stripe width (needs to be divisible by 3).
+	const yi = Math.ceil(h / clrs.length / 3) * 3;
 	const h2 = h / 2;
-	const xi = (w * 2) / clrs.length;
+	const xi = (w * 2 * yi) / h;
 	// Draw the top stripe.
 	parts.push(`<path fill="${getColour(clrs[0], clrSet)}" d="M0,0`);
 	parts.push(`V${yi}H${xi}Z"/>`);
-	// Draw the middle stripe.
-	parts.push(`<path fill="${getColour(clrs[1], clrSet)}" d="M0,${yi}`);
-	parts.push(`V${yi + yi}H${xi}L${w},${h2}L${xi},${yi}Z"/>`);
 	// Draw the bottom stripe.
 	parts.push(`<path fill="${getColour(clrs[2], clrSet)}" d="M0,${h}`);
 	parts.push(`V${yi + yi}H${xi}Z"/>`);
+	// Draw the middle stripe.
+	parts.push(`<path fill="${getColour(clrs[1], clrSet)}" d="M0,${yi}`);
+	parts.push(`V${yi + yi}H${xi}L${w},${h2}L${xi},${yi}Z"/>`);
 
 	return parts.join('');
 };
@@ -111,9 +112,9 @@ const hoistSquare: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h] = dimensions;
 	// Stripe width.
-	const sw = w / 2.4;
+	const sw = w / 2.5;
 	// Difference in height per stripe.
-	const dh = h / 4.8;
+	const dh = h / 5;
 	const parts = [];
 	// l is the left edge of the stripe.
 	parts.push(`<path fill="${getColour(clrs[0], clrSet)}"`);
@@ -128,8 +129,10 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 export const triangle: DesignSet = {
 	// Dimensions must be divisble by 30.
 	dimensions: {
-		// default: [360, 270],
+		// Default 3:2.
 		default: [360, 240],
+		// 4:3 alternative.
+		short: [320, 240],
 	},
 
 	outline,
