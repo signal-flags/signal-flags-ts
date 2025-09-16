@@ -1,6 +1,6 @@
 {
 	"name": "signal-flags",
-	"version": "4.0.0",
+	"version": "4.1.0",
 	"description": "Generate SVG for flags from the International Code of Signals and Racing Rules of Sailing.",
 	"keywords": [
 		"flags",
@@ -16,7 +16,7 @@
 		"url": "git+https://github.com/signal-flags/signal-flags-ts.git"
 	},
 	"bugs": {
-		"url": "https://github.com/signal-flags/signal-flags-ts/issues"
+		"url": "https://github.com/signal-flags/signal-flags/issues"
 	},
 	"homepage": "https://github.com/signal-flags/signal-flags-ts",
 	"type": "module",

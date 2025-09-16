@@ -63,8 +63,12 @@ export const swallowtail: DesignSet = {
 	// Dimensions must be divisible by 90.
 	dimensions: {
 		/** Width, height, tail depth. */
-		default: [360, 270, 90],
-		square: [270, 270, 67.5],
+		// Default 3:2 rectangle.
+		default: [360, 240, 90],
+		// 1:1 alternative.
+		square: [240, 240, 60],
+		// 4:3 alternative.
+		short: [320, 240, 80],
 	},
 
 	outline,

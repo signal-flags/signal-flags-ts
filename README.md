@@ -1,11 +1,11 @@
 # signal-flags-ts
 
-| Generate SVG for flags from the International Code of Signals, Racing Rules of
-| Sailing, and more.
+> Generate SVG for flags from the International Code of Signals, Racing Rules of
+> Sailing, and more.
 
 ## Getting started
 
-If you want to use flag images in a document or website, download them from
+If you want to use flag images in a document or website, you can download them from
 https://signalflags.org.
 
 You only need this package if you want to generate custom versions of these
@@ -13,13 +13,13 @@ images.
 
 ## Installation
 
-```sh
-npm i signal-flags
+```console
+$ npm i signal-flags
 ```
 
-## Usage
+## Example usage
 
-To generate a standalone SVG file for a long and narrow AP (answering pennant):
+This will generate an SVG file for a long and narrow AP (answering pennant).
 
 ```js
 import { writeFile } from 'node:fs/promises';
@@ -34,7 +34,7 @@ const svgFile = getSvg(
 await writeFile('ap-extra-wide.svg', svgFile);
 ```
 
-## Usage in a browser
+## Example usage in a browser
 
 This will create a long and narrow AP (answering pennant) at the top of the
 current page.
@@ -51,3 +51,13 @@ current page.
 	document.body.prepend(div);
 </script>
 ```
+
+## Documentation
+
+Documentation for this module can be found on the
+[Signal Flags website](https://signalflags.org/docs/signal-flags-ts).
+
+## Support
+
+Please report any bugs or suggestions on the
+[Signal Flags Issue Tracker](https://github.com/signal-flags/signal-flags/issues).

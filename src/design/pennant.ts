@@ -174,7 +174,8 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	// const factors = [4.5 / 10, 3 / 10, 2.25 / 10, 1.75 / 10];
 	// const sw = Math.round(w * factors[clrs.length - 2]);
 	const factors = [5 / 12, 3.5 / 12, 1 / 4, 1 / 5];
-	const sw = w * factors[clrs.length - 2];
+	// Make sure the stripe width is divisible by 18 to avoid long decimals.
+	const sw = Math.floor((w * factors[clrs.length - 2]) / 18) * 18;
 	// Difference in height per stripe.
 	const dh = ((h - fh) * (sw / w)) / 2;
 
@@ -202,6 +203,7 @@ export const pennant: DesignSet = {
 	dimensions: {
 		default: [540, 180, 60],
 		long: [720, 180, 60],
+		short: [360, 180, 60],
 	},
 
 	outline,

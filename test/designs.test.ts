@@ -3,6 +3,7 @@ import {
 	generateLong,
 	generateSquare,
 	generatePrimary,
+	generateShort,
 } from '../src/generate';
 import { match2DP } from '../src/check';
 
@@ -61,6 +62,38 @@ describe('Square flags', () => {
 
 	test('Y should be 579 characters', () => {
 		expect(flags.svg.y.length).toBe(579);
+	});
+
+	it('should be on a single line', () => {
+		for (const flag of Object.entries(flags.svg)) {
+			expect(flag.indexOf('\n')).toBe(-1);
+		}
+	});
+});
+
+describe('Short flags', () => {
+	const flags = generateShort();
+
+	it('should have 56 designs', () => {
+		expect(Object.entries(flags.svg).length).toBe(56);
+	});
+
+	it('should have no more than one decimal place in all values', () => {
+		for (const flag of Object.values(flags.svg)) {
+			const match = match2DP(flag);
+			expect(match).toBe(null);
+		}
+	});
+
+	it('should be less than 390 characters (except for Y)', () => {
+		for (const [key, flag] of Object.entries(flags.svg)) {
+			if (['y'].includes(key)) continue;
+			expect(flag.length).toBeLessThan(390);
+		}
+	});
+
+	test('Y should be 583 characters', () => {
+		expect(flags.svg.y.length).toBe(583);
 	});
 
 	it('should be on a single line', () => {
