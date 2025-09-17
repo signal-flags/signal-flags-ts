@@ -129,10 +129,11 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 export const triangle: DesignSet = {
 	// Dimensions must be divisble by 30.
 	dimensions: {
-		// Default 3:2.
-		default: [360, 240],
-		// 4:3 alternative.
-		short: [320, 240],
+		// default: [320, 240], // 4:3 default.
+		// square: [240, 240], // 1:1 alternative.
+		// long: [360, 240], // 3:2 alternative.
+		default: [360, 240], // 3:2, same as a long rectangle.
+		short: [320, 240], // 4:3, same as a default rectangle.
 	},
 
 	outline,

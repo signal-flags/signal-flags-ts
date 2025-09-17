@@ -46,19 +46,21 @@ $thead.append($tr);
 $tr.append(createEl('Key', 'th'));
 $tr.append(createEl('slug', 'th'));
 $tr.append(createEl('Category', 'th'));
-$tr.append(createEl('Default 360 (pennants 540, card 180)', 'th'));
+$tr.append(createEl('Default 320 (pennant 480, triangle 360, card 180)', 'th'));
 $tr.append(
-	createEl('Square 240 (pennants 540, triangles 360, card 180)', 'th'),
+	createEl('Square 240 (pennants 480, triangles 360, card 180)', 'th'),
 );
-$tr.append(createEl('Short (320, pennants 360, triangles 320, card 180', 'th'));
-$tr.append(createEl('Long 720', 'th'));
+$tr.append(createEl('Short: all 320 except card 180', 'th'));
+$tr.append(createEl('Long 360 (pennant 640, triangle 360, card 180)', 'th'));
 $tr.append(createEl('Primary', 'th'));
 
 const scale = 3 / 100;
+
 for (const [key, flag] of Object.entries(flags)) {
 	const $tr = document.createElement('tr');
 	$tbody.append($tr);
-	$tr.append(createEl(key));
+	const $key = createEl(key);
+	$tr.append($key);
 	$tr.append(createEl(flag.slug ?? `(${key})`));
 
 	$tr.append(createEl(flag.category));
@@ -67,35 +69,42 @@ for (const [key, flag] of Object.entries(flags)) {
 	let td = createEl('');
 	td.append(div);
 	div.style.width =
-		flag.shape === 'pennant' ? `${540 * scale}vw`
+		flag.shape === 'pennant' ? `${480 * scale}vw`
+		: flag.shape === 'triangle' ? `${360 * scale}vw`
 		: flag.dimensions === 'card' ? `${180 * scale}vw`
-		: `${360 * scale}vw`;
+		: `${320 * scale}vw`;
 	$tr.append(td);
 
 	div = createEl(svgSquare[key], 'div');
 	td = createEl('');
 	td.append(div);
 	div.style.width =
-		flag.shape === 'pennant' ? `${540 * scale}vw`
+		flag.shape === 'pennant' ? `${480 * scale}vw`
 		: flag.shape === 'triangle' ? `${360 * scale}vw`
 		: flag.dimensions === 'card' ? `${180 * scale}vw`
 		: `${240 * scale}vw`;
 	$tr.append(td);
 
+	// Short.
 	div = createEl(svgShort[key], 'div');
 	td = createEl('');
 	td.append(div);
 	div.style.width =
-		flag.shape === 'pennant' ? `${360 * scale}vw`
+		flag.shape === 'pennant' ? `${320 * scale}vw`
 		: flag.shape === 'triangle' ? `${320 * scale}vw`
 		: flag.dimensions === 'card' ? `${180 * scale}vw`
 		: `${320 * scale}vw`;
 	$tr.append(td);
 
+	// Long
 	div = createEl(svgLong[key], 'div');
 	td = createEl('');
 	td.append(div);
-	div.style.width = '24vw';
+	div.style.width =
+		flag.shape === 'pennant' ? `${640 * scale}vw`
+		: flag.shape === 'triangle' ? `${360 * scale}vw`
+		: flag.dimensions === 'card' ? `${180 * scale}vw`
+		: `${360 * scale}vw`;
 	$tr.append(td);
 
 	div = createEl(svgPrimary[key], 'div');
@@ -103,9 +112,10 @@ for (const [key, flag] of Object.entries(flags)) {
 	td.append(div);
 	td.style.background = '#eee';
 	div.style.width =
-		flag.shape === 'pennant' ? '18vw'
-		: flag.shape === 'triangle' ? '12vw'
-		: '8vw';
+		flag.shape === 'pennant' ? `${480 * scale}vw`
+		: flag.shape === 'triangle' ? `${360 * scale}vw`
+		: flag.dimensions === 'card' ? `${180 * scale}vw`
+		: `${240 * scale}vw`;
 	$tr.append(td);
 }
 /*
