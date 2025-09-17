@@ -96,16 +96,13 @@ export const generateLong = (
 	const meta = getGenerateMeta();
 	const options: DesignOptions = {
 		dimensions: {
-			// Make `long` the default for pennants.
+			// Make `long` the default for pennants and rectangles/swallowtails.
 			pennant: { default: 'long' },
+			rectangle: { default: 'long' },
+			swallowtail: { default: 'long' },
 		},
 	};
-	const svg = someSvg(
-		flags,
-		options,
-		buildOptions, // Generate only pennants.
-		({ shape }) => shape === 'pennant',
-	);
+	const svg = allSvg(flags, options, buildOptions);
 	return { meta, flags, options, svg };
 };
 
@@ -124,21 +121,12 @@ export const generateShort = (
 	const meta = getGenerateMeta();
 	const options: DesignOptions = {
 		dimensions: {
-			// Make `short` the default for pennants, rectangles, swallowtails and
-			// triangles.
+			// Make `short` the default for pennants and triangles.
 			pennant: { default: 'short' },
-			rectangle: { default: 'short' },
-			swallowtail: { default: 'short' },
 			triangle: { default: 'short' },
 		},
 	};
-	const svg = allSvg(
-		// const svg = someSvg(
-		flags,
-		options,
-		buildOptions, // Generate only pennants.
-		// ({ shape }) => shape === 'pennant',
-	);
+	const svg = allSvg(flags, options, buildOptions);
 	return { meta, flags, options, svg };
 };
 

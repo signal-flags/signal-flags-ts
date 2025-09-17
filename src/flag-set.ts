@@ -252,7 +252,6 @@ export const flags: FlagSet = {
 		clrs: ['red', 'white'],
 	},
 
-	// Need to change spec.
 	n9: {
 		category: 'ics',
 		shape: 'pennant',
@@ -401,7 +400,7 @@ export const flags: FlagSet = {
 		category: 'beach',
 		shape: 'rectangle',
 		design: 'solid',
-		clrs: ['purple'],
+		clrs: ['#743bbc'], // This is close to the ISO 20712-2 spec of PMS-266.
 	},
 
 	redAndYellow: {

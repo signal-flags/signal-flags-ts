@@ -29,13 +29,14 @@ const outline: OutlineFunction = ({ dimensions, clrSet, outline: ow }) => {
  */
 const circle: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h, fh] = dimensions;
+
 	const parts = [];
 
 	// Radius.
 	const r = h / 4;
 
-	// Centre 3 radii from hoist.
-	const cx = r * 3;
+	// Centre 3 radii from hoist except for short (<= 2:1) pennants 2 radii.
+	const cx = w / h > 2 ? r * 3 : r * 2;
 
 	// Draw the background.
 	parts.push(`<path fill="${getColour(clrs[1], clrSet)}" d="M0,0`);
@@ -90,8 +91,9 @@ const nordic: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const x0 = h / 5;
 	const y0 = x0;
 
-	// Centre the cross 1/3 of the width across the flag, or the height if less
-	const w2 = Math.min(w / 3, h);
+	// Centre the cross 1/3 of the width across the flag, or the height if less,
+	// rounding to a multiple of 4 to avoid long decimals.
+	const w2 = Math.floor(Math.min(w / 3, h));
 	const h2 = h / 2;
 
 	const x1 = w2 - x0 / 2;
@@ -136,8 +138,9 @@ const quarters: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h, fh] = dimensions;
 	const parts = [];
 
-	// 5/12 works better than 1/2.
-	const w2 = (w * 5) / 12;
+	// 5/12 works better than 1/2, but round down to a multiple of 3 to avoid
+	// long decimals.
+	const w2 = Math.floor((w * 5) / 12 / 3) * 3;
 	const h2 = h / 2;
 	// Half the fly height.
 	const fh2 = fh / 2;
@@ -174,8 +177,8 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	// const factors = [4.5 / 10, 3 / 10, 2.25 / 10, 1.75 / 10];
 	// const sw = Math.round(w * factors[clrs.length - 2]);
 	const factors = [5 / 12, 3.5 / 12, 1 / 4, 1 / 5];
-	// Make sure the stripe width is divisible by 18 to avoid long decimals.
-	const sw = Math.floor((w * factors[clrs.length - 2]) / 18) * 18;
+	// Make sure the stripe width is divisible by 12 to avoid long decimals.
+	const sw = Math.floor((w * factors[clrs.length - 2]) / 4) * 4;
 	// Difference in height per stripe.
 	const dh = ((h - fh) * (sw / w)) / 2;
 
@@ -201,9 +204,9 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 export const pennant: DesignSet = {
 	// Dimensions must be divisble by 30.
 	dimensions: {
-		default: [540, 180, 60],
-		long: [720, 180, 60],
-		short: [360, 180, 60],
+		default: [480, 180, 60], // Twice the length of a default square, 8:3.
+		long: [640, 180, 60], // Twice the length of a default rectangle, 32:9.
+		short: [320, 180, 60], // The same length as a default rectangle.
 	},
 
 	outline,
