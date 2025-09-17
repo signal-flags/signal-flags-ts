@@ -62,7 +62,7 @@ export const getNumericalDimensions = (
 	options: DesignOptions,
 	flag: Flag,
 ): number[] => {
-	// If the flag has its own dimensions (e.g. `card` for the `minus` flag) start
+	// If the flag has its own dimensions (e.g. `card` for the `decrease` flag) start
 	// with these, otherwise use `default`.
 	const flagDimensions = flag.dimensions ?? 'default';
 	// Are there any dimensions options set for this shape?

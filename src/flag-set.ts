@@ -354,7 +354,7 @@ export const flags: FlagSet = {
 		clrs: ['yellow'],
 	},
 
-	plus: {
+	increase: {
 		category: 'rrs',
 		shape: 'rectangle',
 		design: 'plus',
@@ -362,7 +362,7 @@ export const flags: FlagSet = {
 		clrs: ['black', 'white'],
 	},
 
-	minus: {
+	decrease: {
 		category: 'rrs',
 		shape: 'rectangle',
 		design: 'minus',

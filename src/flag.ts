@@ -7,7 +7,7 @@ export interface Flag {
 	category: 'ics' | 'rrs' | 'naval-numeral' | 'beach';
 	/** rectangle, pennant, triangle or swallowtail */
 	shape: FlagShape;
-	/** Force a card shape for plus/minus/toPort/toStarboard, also to force square
+	/** Force a card shape for increase/decrease/toPort/toStarboard, also to force square
 	 * for some naval numerals? */
 	dimensions?: 'default' | 'long' | 'square' | 'card';
 	/** e.g. solid, diagonalQuarters... */
