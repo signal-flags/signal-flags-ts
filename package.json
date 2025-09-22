@@ -1,7 +1,7 @@
 {
 	"name": "signal-flags",
-	"version": "4.2.0",
-	"description": "Generate SVG for flags from the International Code of Signals and Racing Rules of Sailing.",
+	"version": "5.0.0-001.dev",
+	"description": "Generate SVG for flags from the International Code of Signals, Racing Rules of Sailing and more.",
 	"keywords": [
 		"flags",
 		"sailing",
