@@ -17,10 +17,12 @@ export const clrSets: Record<string, ClrSet> = {
 		// Consider the Irish flag colours Pantone 347 C #009a44 or 347 U #169b62.
 		green: '#00965e', // Pantone 340 C
 		red: '#c8102e', // Pantone 186 C
-		yellow: '#ffd100', // Pantone 109 C
+		// yellow: '#ffd100', // Pantone 109 C
+		yellow: '#ffea00', // From ICS
 		white: '#f5f5f5',
 		// Consider the Irish flag colours Pantone 151 C #ff8200 or 347 U #ff883e.
-		orange: '#e37017', // Arithmetical mean red and yellow best in 'tests'.
+		// orange: '#e37017', // Arithmetical mean red and yellow best in 'tests'.
+		orange: '#e37d17', // Arithmetical mean red and yellow best in 'tests'.
 	},
 
 	primary: {
