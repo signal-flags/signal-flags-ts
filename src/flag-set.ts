@@ -301,8 +301,8 @@ export const flags: FlagSet = {
 		clrs: ['black'],
 	},
 
-	blackAndWhite: {
-		slug: 'black-and-white',
+	blackWhite: {
+		slug: 'black-white',
 		category: 'rrs',
 		shape: 'rectangle',
 		design: 'diagonalHalves',
@@ -323,13 +323,13 @@ export const flags: FlagSet = {
 		clrs: ['green'],
 	},
 
-	greenAndWhite: {
-		slug: 'green-and-white',
+	greenWhite: {
+		slug: 'green-white',
 		category: 'rrs',
 		shape: 'rectangle',
 		design: 'check',
-		clrs: ['green', 'white'],
-		n: 4,
+		clrs: ['white', 'green'],
+		n: 2,
 	},
 
 	orange: {
@@ -387,8 +387,8 @@ export const flags: FlagSet = {
 		clrs: ['green', 'white'],
 	},
 
-	blackAndWhiteCheck: {
-		slug: 'black-and-white-check',
+	blackWhiteQuarter: {
+		slug: 'black-white-quarter',
 		category: 'beach',
 		shape: 'rectangle',
 		design: 'check',
@@ -403,8 +403,8 @@ export const flags: FlagSet = {
 		clrs: ['#743bbc'], // This is close to the ISO 20712-2 spec of PMS-266.
 	},
 
-	redAndYellow: {
-		slug: 'red-and-yellow',
+	redYellow: {
+		slug: 'red-yellow',
 		category: 'beach',
 		shape: 'rectangle',
 		design: 'horizontal',

@@ -1,9 +1,5 @@
 # Change Log
 
-TODO
-
-Green and white should be quarters, white top left.
-
 ## [4.2.0](https://github.com/signal-flags/signal-flags-ts/tree/v4.2.0) - _2025-09-17_
 
 ### Design changes
