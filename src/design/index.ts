@@ -106,6 +106,10 @@ export const getFlagSvg = (
 ): string => {
 	let { designOptions, svgOptions } = options;
 	// Merge the design options.
+
+	if (options.variant !== undefined && !variants[options.variant]) {
+		throw new Error('Invalid variant');
+	}
 	const variant = options.variant && variants[options.variant];
 
 	designOptions =

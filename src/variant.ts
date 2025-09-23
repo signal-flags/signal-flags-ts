@@ -6,6 +6,8 @@ export interface Variant {
 	filter?: FlagFilter;
 }
 
+const defaultVariant: Variant = {};
+
 /** All squares are rectangles and in this variant all rectangles are squares. */
 const square: Variant = {
 	designOptions: {
@@ -55,6 +57,7 @@ const primary: Variant = {
 };
 
 export const variants = {
+	default: defaultVariant,
 	square,
 	short,
 	long,

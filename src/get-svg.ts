@@ -30,7 +30,8 @@ export interface AllSvgOptions {
  * @param {FlagSet} [options.flags] Flagset to use instead of the default.
  * @param {keyof Variant} [options.variant] Named variant to use.
  * @param {DesignOptions} [options.designOptions] Design overrides.
- * @param {SvgOptions} [options.svgOptions] Options for 
+ * @param {SvgOptions} [options.svgOptions] Options for creating the SVG (file,
+ *        dataUri).
  * @returns SVG for the flag.
  */
 export const getSvg = (
