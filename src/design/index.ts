@@ -4,20 +4,31 @@ import { pennant } from './pennant';
 import { triangle } from './triangle';
 
 import { type Flag } from '../flag';
+import { variants } from '../variant';
+
+import { clrSets } from '../colour';
 
 export type FlagShape = keyof typeof designs;
 
-export interface BuildOptions {
+export interface FlagSvgOptions {
+	variant?: keyof typeof variants;
+	designOptions?: DesignOptions;
+	svgOptions?: SvgOptions;
+}
+
+export interface SvgOptions {
 	dimensions?: number[] | string;
 	file?: boolean;
 	dataUri?: boolean;
 }
 
 export interface DesignOptions {
-	// dimensions?: Record<FlagShape, Record<string, string | number[]>>;
+	/** Override dimensions. */
 	dimensions?: Record<string, Record<string, string | number[]>>;
+	/** Add an outline with default or specified width. */
 	outline?: number | boolean;
-	clrSet?: string | Record<string, string>;
+	/** Use a named colourset or provide overrides. */
+	clrSet?: keyof typeof clrSets | Record<string, string>;
 }
 
 export interface DesignSettings {
@@ -89,11 +100,19 @@ export const getNumericalDimensions = (
  * @param options
  * @returns
  */
-export const getSvg = (
+export const getFlagSvg = (
 	flag: Flag,
-	designOptions: DesignOptions = {},
-	options: BuildOptions = {},
+	options: FlagSvgOptions = {},
 ): string => {
+	let { designOptions, svgOptions } = options;
+	// Merge the design options.
+	const variant = options.variant && variants[options.variant];
+
+	designOptions =
+		variant?.designOptions ?
+			{ ...variant.designOptions, ...options.designOptions }
+		:	{ ...options.designOptions };
+
 	// Holds the parts of the SVG.
 	const parts = [];
 
@@ -106,7 +125,8 @@ export const getSvg = (
 
 	const [w, h] = dimensions;
 
-	if (options.file || options.dataUri) {
+	svgOptions = svgOptions ?? {};
+	if (svgOptions.file || svgOptions.dataUri) {
 		// Add the xml declaration for a file.
 		parts.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
 		parts.push(
@@ -145,10 +165,10 @@ export const getSvg = (
 	}
 
 	// Close the svg element with or without a final newline.
-	parts.push(options.file || options.dataUri ? '</svg>\n' : '</svg>');
+	parts.push(svgOptions.file || svgOptions.dataUri ? '</svg>\n' : '</svg>');
 
 	// Return the markup as a dataUri...
-	if (options.dataUri) {
+	if (svgOptions.dataUri) {
 		// ? support %-encoding as an option, although it generates longer strings?
 		// 'data:image/svg+xml;utf8,' + encodeURIComponent(...);
 		return 'data:image/svg+xml;base64,' + toBase64(parts.join(''));

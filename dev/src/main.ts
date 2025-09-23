@@ -1,13 +1,5 @@
 import './style.css';
-import {
-	getSvg,
-	flags,
-	generateDefault,
-	generateLong,
-	generatePrimary,
-	generateSquare,
-	generateShort,
-} from '../../src/signal-flags';
+import { getSvg, flags, allSvg } from '../../src/signal-flags';
 
 const createEl = (html: string, el = 'td') => {
 	const child = document.createElement(el);
@@ -17,19 +9,21 @@ const createEl = (html: string, el = 'td') => {
 
 {
 	// Test the README example.
-	const svg = getSvg(flags.ap, {
-		dimensions: { pennant: { default: [720, 80, 20] } },
+	const svg = getSvg('ap', {
+		designOptions: {
+			dimensions: { pennant: { default: [720, 80, 20] } },
+		},
 	});
 	const div = document.createElement('pre');
 	div.innerHTML = svg;
 	document.body.prepend(div);
 }
 
-const svgDefault = generateDefault().svg;
-const svgLong = generateLong().svg;
-const svgSquare = generateSquare().svg;
-const svgPrimary = generatePrimary().svg;
-const svgShort = generateShort().svg;
+const svgDefault = allSvg();
+const svgLong = allSvg({ variant: 'long' });
+const svgSquare = allSvg({ variant: 'square' });
+const svgPrimary = allSvg({ variant: 'primary' });
+const svgShort = allSvg({ variant: 'short' });
 
 const $app = document.querySelector<HTMLDivElement>('#app');
 

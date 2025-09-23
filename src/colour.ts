@@ -1,4 +1,4 @@
-export type ColourSet = {
+export type ClrSet = {
 	outline: string;
 	black: string;
 	blue: string;
@@ -9,7 +9,7 @@ export type ColourSet = {
 	orange: string;
 };
 
-const colourSets: Record<string, ColourSet> = {
+export const clrSets: Record<string, ClrSet> = {
 	default: {
 		outline: '#000', // The default outline is true black.
 		black: '#2d2926', // Pantone Black C
@@ -43,23 +43,23 @@ const colourSets: Record<string, ColourSet> = {
  * @returns
  */
 export const getColour = (
-	name: string,
-	colourSet?: keyof typeof colourSets | Record<string, string>,
+	name: keyof ClrSet | string,
+	colourSet?: keyof typeof clrSets | Record<string, string>,
 ): string => {
 	if (name === 'outline') {
-		if (!colourSet) return colourSets.default.outline;
+		if (!colourSet) return clrSets.default.outline;
 		if (typeof colourSet === 'string') {
-			if (colourSets[colourSet]) return colourSets[colourSet].outline;
+			if (clrSets[colourSet]) return clrSets[colourSet].outline;
 			return colourSet;
 		}
 		return colourSet.outline;
 	}
 	// If no colourSet is provided, use the default colourSet.
-	if (!colourSet) return colourSets.default[name as keyof ColourSet] ?? name;
+	if (!colourSet) return clrSets.default[name as keyof ClrSet] ?? name;
 	// If colourSet is a string, use it to index colourSets.
 	if (typeof colourSet === 'string') {
-		if (colourSets[colourSet])
-			return colourSets[colourSet][name as keyof ColourSet] ?? name;
+		if (clrSets[colourSet])
+			return clrSets[colourSet][name as keyof ClrSet] ?? name;
 		return colourSet;
 	}
 	return colourSet[name];
