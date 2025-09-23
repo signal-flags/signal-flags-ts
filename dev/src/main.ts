@@ -44,11 +44,11 @@ $tr.append(createEl('Default 320 (pennant 480, triangle 360, card 180)', 'th'));
 $tr.append(
 	createEl('Square 240 (pennants 480, triangles 360, card 180)', 'th'),
 );
-$tr.append(createEl('Short: all 320 except card 180', 'th'));
+$tr.append(createEl('ICS (Short)', 'th'));
 $tr.append(createEl('Long 360 (pennant 640, triangle 360, card 180)', 'th'));
 $tr.append(createEl('Primary', 'th'));
 
-const scale = 3 / 100;
+const scale = 2 / 100;
 
 for (const [key, flag] of Object.entries(flags)) {
 	const $tr = document.createElement('tr');
@@ -63,10 +63,10 @@ for (const [key, flag] of Object.entries(flags)) {
 	let td = createEl('');
 	td.append(div);
 	div.style.width =
-		flag.shape === 'pennant' ? `${480 * scale}vw`
+		flag.shape === 'pennant' ? `${630 * scale}vw`
 		: flag.shape === 'triangle' ? `${360 * scale}vw`
 		: flag.dimensions === 'card' ? `${180 * scale}vw`
-		: `${320 * scale}vw`;
+		: `${360 * scale}vw`;
 	$tr.append(td);
 
 	div = createEl(svgSquare[key], 'div');
@@ -84,10 +84,10 @@ for (const [key, flag] of Object.entries(flags)) {
 	td = createEl('');
 	td.append(div);
 	div.style.width =
-		flag.shape === 'pennant' ? `${320 * scale}vw`
+		flag.shape === 'pennant' ? `${504 * scale}vw`
 		: flag.shape === 'triangle' ? `${320 * scale}vw`
 		: flag.dimensions === 'card' ? `${180 * scale}vw`
-		: `${320 * scale}vw`;
+		: `${288 * scale}vw`;
 	$tr.append(td);
 
 	// Long

@@ -204,9 +204,11 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 export const pennant: DesignSet = {
 	// Dimensions must be divisble by 30.
 	dimensions: {
-		default: [480, 180, 60], // Twice the length of a default square, 8:3.
+		// default: [480, 180, 60], // Twice the length of a default square, 8:3.
+		default: [630, 210, 70], // Twice the length of a default square, 8:3.
 		long: [640, 180, 60], // Twice the length of a default rectangle, 32:9.
-		short: [320, 180, 60], // The same length as a default rectangle.
+		// short: [320, 180, 60], // The same length as a default rectangle.
+		short: [504, 176, 60], // The same length as a default rectangle.
 	},
 
 	outline,

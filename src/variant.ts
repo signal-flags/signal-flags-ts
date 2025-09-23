@@ -23,6 +23,8 @@ const short: Variant = {
 	designOptions: {
 		dimensions: {
 			// Make `short` the default for pennants and triangles.
+			rectangle: { default: 'short' },
+			swallowtail: { default: 'short' },
 			pennant: { default: 'short' },
 			triangle: { default: 'short' },
 		},

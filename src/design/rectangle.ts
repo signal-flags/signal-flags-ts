@@ -533,7 +533,10 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 export const rectangle: DesignSet = {
 	// Dimensions must be divisible by ?90.
 	dimensions: {
-		default: [320, 240], // 4:3 default.
+		// default: [320, 240], // 4:3 default.
+		default: [360, 240], // 4:3 default.
+		short: [288, 240], // 4:3 default.
+
 		square: [240, 240], // 1:1 alternative.
 		long: [360, 240], // 3:2 alternative.
 
