@@ -60,12 +60,9 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 export const swallowtail: DesignSet = {
-	// Dimensions must be divisible by 90.
 	dimensions: {
 		/** Width, height, tail depth. */
-		default: [320, 240, 80], // 4:3 default.
-		square: [240, 240, 60], // 1:1 alternative.
-		long: [360, 240, 90], // 3:2 alternative.
+		default: [360, 240, 90], // 4:3 default.
 	},
 
 	outline,

@@ -1,6 +1,6 @@
 import { type DesignSet, type DrawFunction, type OutlineFunction } from '.';
 import { getColour } from '../colour';
-
+import { roundDecimalPlaces } from '../utils';
 /**
  * Draw an outline.
  *
@@ -92,12 +92,14 @@ const nordic: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const y0 = x0;
 
 	// Centre the cross 1/3 of the width across the flag, or the height if less,
-	// rounding to a multiple of 4 to avoid long decimals.
-	const w2 = Math.floor(Math.min(w / 3, h));
+	// rounding to a multiple of 7 to avoid long decimals.
+	const w2 = Math.floor(Math.min(w / 3, h) / 10.5) * 10.5;
 	const h2 = h / 2;
 
 	const x1 = w2 - x0 / 2;
+	const x2 = w2 + x0 / 2;
 	const y1 = (h - y0) / 2;
+	const y2 = (h + y0) / 2;
 
 	// Half the fly height.
 	const fh2 = fh / 2;
@@ -106,24 +108,29 @@ const nordic: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	// Half the height at the left side of the cross.
 	const hhl = h2 - heightFactor * x1;
 	// Half the height at the right side of the cross.
-	const hhr = h2 - heightFactor * (x1 + x0);
+	const hhr = h2 - heightFactor * x2;
+
+	const h2plusHhl = roundDecimalPlaces(h2 + hhl, 6);
+	const h2plusHhr = roundDecimalPlaces(h2 + hhr, 6);
+	const h2minusHhl = roundDecimalPlaces(h2 - hhl, 6);
+	const h2minusHhr = roundDecimalPlaces(h2 - hhr, 6);
 
 	// Draw the two limbs of the cross - it doesn't matter that they intersect.
 	parts.push(`<path fill="${getColour(clrs[0], clrSet)}" d="`);
 	parts.push(
-		`M${x1 + x0},${h2 - hhr}V${h2 + hhr}L${x1},${h2 + hhl}V${h2 - hhl}Z`,
+		`M${x2},${h2minusHhr}V${h2plusHhr}L${x1},${h2plusHhl}V${h2minusHhl}Z`,
 	);
-	parts.push(`M0,${y1}H${w}V${y1 + y0}H${0}Z"/>`);
+	parts.push(`M0,${y1}H${w}V${y2}H${0}Z"/>`);
 
 	const clr = getColour(clrs[1], clrSet);
 	// Draw the top left quarter.
-	parts.push(`<path fill="${clr}" d="M0,0V${y1}H${x1}V${h2 - hhl}Z`);
+	parts.push(`<path fill="${clr}" d="M0,0V${y1}H${x1}V${h2minusHhl}Z`);
 	// Draw the top right quarter.
-	parts.push(`M${x1 + x0},${h2 - hhr}V${y1}H${w}V${h2 - fh2}Z`);
+	parts.push(`M${x2},${h2minusHhr}V${y1}H${w}V${h2 - fh2}Z`);
 	// Draw the bottom right quarter.
-	parts.push(`M${x1 + x0},${h2 + hhr}V${y1 + x0}H${w}V${h2 + fh2}Z`);
+	parts.push(`M${x2},${h2plusHhr}V${y2}H${w}V${h2 + fh2}Z`);
 	// Draw the bottom left quarter.
-	parts.push(`M0,${h}V${y1 + x0}H${x1}V${h2 + hhl}Z"/>`);
+	parts.push(`M0,${h}V${y2}H${x1}V${h2plusHhl}Z"/>`);
 	return parts.join('');
 };
 
@@ -138,27 +145,27 @@ const quarters: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	const [w, h, fh] = dimensions;
 	const parts = [];
 
-	// 5/12 works better than 1/2, but round down to a multiple of 3 to avoid
+	// 5/12 works better than 1/2, but round down to a multiple of 9 to avoid
 	// long decimals.
-	const w2 = Math.floor((w * 5) / 12 / 3) * 3;
+	const w2 = Math.floor((w * 5) / 12 / 9) * 9;
 	const h2 = h / 2;
 	// Half the fly height.
 	const fh2 = fh / 2;
-	// Half the height half way along the flag.
-	const hh2 = (7 * h + 5 * fh) / 24;
+	// Half the height at the cross of the quarters.
+	const hh2 = roundDecimalPlaces(((w2 / w) * (h - fh)) / 2, 6);
 
 	// Draw the top left quarter.
 	parts.push(`<path fill="${getColour(clrs[0], clrSet)}"`);
-	parts.push(` d="M0,0V${h2}H${w2}V${h2 - hh2}Z"/>`);
+	parts.push(` d="M0,0V${h2}H${w2}V${hh2}Z"/>`);
 	// Draw the top right quarter.
 	parts.push(`<path fill="${getColour(clrs[1], clrSet)}"`);
-	parts.push(` d="M${w2},${h2 - hh2}V${h2}H${w}V${h2 - fh2}Z"/>`);
+	parts.push(` d="M${w2},${hh2}V${h2}H${w}V${h2 - fh2}Z"/>`);
 	// Draw the bottom left quarter.
 	parts.push(`<path fill="${getColour(clrs[2], clrSet)}"`);
-	parts.push(` d="M0,${h}V${h2}H${w2}V${h2 + hh2}Z"/>`);
+	parts.push(` d="M0,${h}V${h2}H${w2}V${h - hh2}Z"/>`);
 	// Draw the bottom right quarter.
 	parts.push(`<path fill="${getColour(clrs[3], clrSet)}"`);
-	parts.push(` d="M${w2},${h2 + hh2}V${h2}H${w}V${h2 + fh2}Z"/>`);
+	parts.push(` d="M${w2},${h - hh2}V${h2}H${w}V${h2 + fh2}Z"/>`);
 	return parts.join('');
 };
 
@@ -178,7 +185,7 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	// const sw = Math.round(w * factors[clrs.length - 2]);
 	const factors = [5 / 12, 3.5 / 12, 1 / 4, 1 / 5];
 	// Make sure the stripe width is divisible by 12 to avoid long decimals.
-	const sw = Math.floor((w * factors[clrs.length - 2]) / 4) * 4;
+	const sw = Math.floor((w * factors[clrs.length - 2]) / 15.75) * 15.75;
 	// Difference in height per stripe.
 	const dh = ((h - fh) * (sw / w)) / 2;
 
@@ -189,24 +196,23 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 	for (let i = 0; i < clrs.length - 1; i++) {
 		parts.push(`<path fill="${getColour(clrs[i], clrSet)}"`);
 		parts.push(` d="M${l},${t}`);
-		t += dh;
-		parts.push(`L${l + sw},${t}V${h - t}L${l},${h - t + dh}Z"/>`);
-		l += sw;
+		const prevT = t;
+		t = roundDecimalPlaces(t + dh, 6);
+		const hMinusT = roundDecimalPlaces(h - t, 6);
+		parts.push(`L${l + sw},${t}V${hMinusT}L${l},${h - prevT}Z"/>`);
+		l = roundDecimalPlaces(l + sw, 6);
 	}
 	// Draw the last stripe
 	parts.push(`<path fill="${getColour(clrs[clrs.length - 1], clrSet)}"`);
 	parts.push(` d="M${l},${t}L${w},${(h - fh) / 2}V${(h + fh) / 2}`);
-	t += dh;
-	parts.push(`L${l},${h - t + dh}Z"/>`);
+	const hMinusT = roundDecimalPlaces(h - t, 6);
+	parts.push(`L${l},${hMinusT}Z"/>`);
 	return parts.join('');
 };
 
 export const pennant: DesignSet = {
-	// Dimensions must be divisble by 30.
 	dimensions: {
-		default: [480, 180, 60], // Twice the length of a default square, 8:3.
-		long: [640, 180, 60], // Twice the length of a default rectangle, 32:9.
-		short: [320, 180, 60], // The same length as a default rectangle.
+		default: [600, 210, 66],
 	},
 
 	outline,

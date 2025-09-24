@@ -1,16 +1,8 @@
 export type { Flag } from './flag';
-export type { DesignOptions, BuildOptions } from './design';
+export type { DesignOptions, SvgOptions } from './design';
 
-export { flags } from './flag-set';
 export { version } from './meta';
-
-export {
-	getSvg,
-	allSvg,
-	someSvg,
-	generateDefault,
-	generateLong,
-	generatePrimary,
-	generateSquare,
-	generateShort,
-} from './generate';
+export { flags } from './flag-set';
+export { variants } from './variant';
+export { getFlagSvg, defaultDimensions } from './design';
+export { getSvg, allSvg } from './get-svg';
