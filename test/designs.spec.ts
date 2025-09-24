@@ -30,8 +30,8 @@ describe('Default flags', () => {
 		expect(svg.y.length).toBe(583);
 	});
 
-	test('AP should be 386 characters', () => {
-		expect(svg.ap.length).toBe(386);
+	test('AP should be 461 characters', () => {
+		expect(svg.ap.length).toBe(461);
 	});
 
 	it('should be on a single line', () => {
@@ -48,17 +48,29 @@ describe('Square flags', () => {
 		expect(Object.entries(svg).length).toBe(56);
 	});
 
-	it('should have no more than two decimal places in all values', () => {
-		for (const flag of Object.values(svg)) {
+	it('should have no more than two decimal places in all values except N4, N5, N8 and AP', () => {
+		for (const [key, flag] of Object.entries(svg)) {
+			if ('n4,n5,n8,ap'.split(',').includes(key)) continue;
 			const match = match3DP(flag);
 			expect(match).toBe(null);
 		}
 	});
 
-	it('should be less than 330 characters (except for G, Y and AP )', () => {
+	it('should have no more than three decimal places in N5', () => {
+		const match = match4DP(svg.n5);
+		expect(match).toBe(null);
+	});
+
+	it('should have no more than four decimal places in n4, n8 and AP', () => {
+		expect(match5DP(svg.n4)).toBe(null);
+		expect(match5DP(svg.n8)).toBe(null);
+		expect(match5DP(svg.ap)).toBe(null);
+	});
+
+	it('should be less than 345 characters (except for G, Y and AP )', () => {
 		for (const [key, flag] of Object.entries(svg)) {
 			if (['g', 'y', 'ap'].includes(key)) continue;
-			expect(flag.length).toBeLessThan(330);
+			expect(flag.length).toBeLessThan(345);
 		}
 	});
 
@@ -70,8 +82,8 @@ describe('Square flags', () => {
 		expect(svg.y.length).toBe(579);
 	});
 
-	test('AP should be 386 characters', () => {
-		expect(svg.ap.length).toBe(386);
+	test('AP should be 466 characters', () => {
+		expect(svg.ap.length).toBe(466);
 	});
 
 	it('should be on a single line', () => {
@@ -81,8 +93,8 @@ describe('Square flags', () => {
 	});
 });
 
-describe('Short flags', () => {
-	const svg = allSvg({ variant: 'short' });
+describe('ICS flags', () => {
+	const svg = allSvg({ variant: 'ics' });
 
 	it('should have 56 designs', () => {
 		expect(Object.entries(svg).length).toBe(56);
@@ -102,16 +114,16 @@ describe('Short flags', () => {
 		}
 	});
 
-	test('G should be 382 characters', () => {
-		expect(svg.g.length).toBe(382);
+	test('G should be 379 characters', () => {
+		expect(svg.g.length).toBe(379);
 	});
 
-	test('Y should be 583 characters', () => {
-		expect(svg.y.length).toBe(583);
+	test('Y should be 615 characters', () => {
+		expect(svg.y.length).toBe(615);
 	});
 
-	test('AP should be 386 characters', () => {
-		expect(svg.ap.length).toBe(386);
+	test('AP should be 458 characters', () => {
+		expect(svg.ap.length).toBe(458);
 	});
 
 	it('should be on a single line', () => {
@@ -121,16 +133,16 @@ describe('Short flags', () => {
 	});
 });
 
-describe('Long flags', () => {
-	const svg = allSvg({ variant: 'long' });
+describe('Alternative flags', () => {
+	const svg = allSvg({ variant: 'alternative' });
 
 	it('should have 56 designs', () => {
 		expect(Object.entries(svg).length).toBe(56);
 	});
 
-	it('should have no more than three decimal places in all values except n0, n4 and n8', () => {
+	it('should have no more than three decimal places in all values except n4, n5 and n8', () => {
 		for (const [key, flag] of Object.entries(svg)) {
-			if (['n4', 'n8'].includes(key)) continue;
+			if ('n4,n5,n8'.split(',').includes(key)) continue;
 			const match = match4DP(flag);
 			expect(match).toBe(null);
 		}
@@ -156,8 +168,8 @@ describe('Long flags', () => {
 		expect(svg.y.length).toBe(583);
 	});
 
-	test('AP should be 389 characters', () => {
-		expect(svg.ap.length).toBe(389);
+	test('AP should be 402 characters', () => {
+		expect(svg.ap.length).toBe(402);
 	});
 
 	it('should be on a single line', () => {
@@ -174,11 +186,23 @@ describe('Primary flags', () => {
 		expect(Object.entries(svg).length).toBe(41);
 	});
 
-	it('should have no more than two decimal places in all values', () => {
-		for (const flag of Object.values(svg)) {
+	it('should have no more than two decimal places in all values except N4, N5, N8 and AP', () => {
+		for (const [key, flag] of Object.entries(svg)) {
+			if ('n4,n5,n8,ap'.split(',').includes(key)) continue;
 			const match = match3DP(flag);
 			expect(match).toBe(null);
 		}
+	});
+
+	it('should have no more than three decimal places in N5', () => {
+		const match = match4DP(svg.n5);
+		expect(match).toBe(null);
+	});
+
+	it('should have no more than four decimal places in n4, n8 and AP', () => {
+		expect(match5DP(svg.n4)).toBe(null);
+		expect(match5DP(svg.n8)).toBe(null);
+		expect(match5DP(svg.ap)).toBe(null);
 	});
 
 	it('should be less than 330 characters (except for G, Y and AP )', () => {
@@ -196,8 +220,8 @@ describe('Primary flags', () => {
 		expect(svg.y.length).toBe(469);
 	});
 
-	test('AP should be 280 characters', () => {
-		expect(svg.ap.length).toBe(280);
+	test('AP should be 360 characters', () => {
+		expect(svg.ap.length).toBe(360);
 	});
 
 	it('should be on a single line', () => {

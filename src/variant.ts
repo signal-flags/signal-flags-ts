@@ -12,32 +12,32 @@ const defaultVariant: Variant = {};
 const square: Variant = {
 	designOptions: {
 		dimensions: {
-			// Make `square` the default for rectangles and swallowtails.
-			rectangle: { default: 'square' },
-			swallowtail: { default: 'square' },
+			rectangle: { default: [240, 240] },
+			swallowtail: { default: [240, 240, 60] },
+			pennant: { default: [480, 180, 60] },
+			triangle: { default: [336, 240] },
 		},
 	},
 };
 
-const short: Variant = {
+const ics: Variant = {
 	designOptions: {
 		dimensions: {
-			// Make `short` the default for pennants and triangles.
-			rectangle: { default: 'short' },
-			swallowtail: { default: 'short' },
-			pennant: { default: 'short' },
-			triangle: { default: 'short' },
+			rectangle: { default: [288, 240] },
+			swallowtail: { default: [288, 240, 72] },
+			pennant: { default: [450, 140, 50] },
+			triangle: { default: [336, 240] },
 		},
 	},
 };
 
-const long: Variant = {
+const alternative: Variant = {
 	designOptions: {
 		dimensions: {
-			// Make `long` the default for pennants and rectangles/swallowtails.
-			pennant: { default: 'long' },
-			rectangle: { default: 'long' },
-			swallowtail: { default: 'long' },
+			rectangle: { default: [320, 240] },
+			swallowtail: { default: [320, 240, 80] },
+			pennant: { default: [360, 180, 60] },
+			triangle: { default: [320, 240] },
 		},
 	},
 };
@@ -46,9 +46,10 @@ const long: Variant = {
 const primary: Variant = {
 	designOptions: {
 		dimensions: {
-			// Make `square` the default for rectangles and swallowtails.
-			rectangle: { default: 'square' },
-			swallowtail: { default: 'square' },
+			rectangle: { default: [240, 240] },
+			swallowtail: { default: [240, 240, 60] },
+			pennant: { default: [480, 180, 60] },
+			triangle: { default: [336, 240] },
 		},
 		// Use the `primary` colour set.
 		clrSet: 'primary',
@@ -61,7 +62,7 @@ const primary: Variant = {
 export const variants = {
 	default: defaultVariant,
 	square,
-	short,
-	long,
+	ics,
+	alternative,
 	primary,
 };

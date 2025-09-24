@@ -59,6 +59,13 @@ const toBase64 =
 		(b: string) => Buffer.from(b).toString('base64')
 	:	btoa;
 
+export const defaultDimensions = {
+	rectangle: rectangle.dimensions,
+	swallowtail: swallowtail.dimensions,
+	pennant: pennant.dimensions,
+	triangle: triangle.dimensions,
+};
+
 /**
  * Get the numerical dimensions from a complicated series of potential
  * overrides.
@@ -73,8 +80,8 @@ export const getNumericalDimensions = (
 	options: DesignOptions,
 	flag: Flag,
 ): number[] => {
-	// If the flag has its own dimensions (e.g. `card` for the `decrease` flag) start
-	// with these, otherwise use `default`.
+	// If the flag has its own dimensions (e.g. `card` for the `decrease` flag)
+	// start with these, otherwise use `default`.
 	const flagDimensions = flag.dimensions ?? 'default';
 	// Are there any dimensions options set for this shape?
 	if (options.dimensions?.[flag.shape]) {
@@ -104,7 +111,7 @@ export const getFlagSvg = (
 	flag: Flag,
 	options: FlagSvgOptions = {},
 ): string => {
-	let { designOptions, svgOptions } = options;
+	let { svgOptions } = options;
 	// Merge the design options.
 
 	if (options.variant !== undefined && !variants[options.variant]) {
@@ -112,7 +119,7 @@ export const getFlagSvg = (
 	}
 	const variant = options.variant && variants[options.variant];
 
-	designOptions =
+	const designOptions: DesignOptions =
 		variant?.designOptions ?
 			{ ...variant.designOptions, ...options.designOptions }
 		:	{ ...options.designOptions };

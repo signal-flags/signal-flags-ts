@@ -2,7 +2,11 @@ import * as SignalFlags from '../../src/signal-flags';
 
 import * as pkg from '../../package.json';
 
-const api = ['allSvg', 'flags', 'getFlagSvg', 'getSvg', 'variants', 'version'];
+// prettier-ignore
+const api = [
+	'allSvg', 'defaultDimensions', 'flags', 'getFlagSvg', 'getSvg', 'variants', 
+	'version',
+];
 
 describe('The entry point', () => {
 	it('should only expose the public API', () => {

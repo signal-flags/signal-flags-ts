@@ -3,10 +3,10 @@ import { variants } from '../../src/variant';
 describe('variants', () => {
 	it('should have the correct keys', () => {
 		expect(Object.keys(variants).sort()).toEqual([
+			'alternative',
 			'default',
-			'long',
+			'ics',
 			'primary',
-			'short',
 			'square',
 		]);
 	});

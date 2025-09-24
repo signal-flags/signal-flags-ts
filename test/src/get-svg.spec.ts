@@ -13,7 +13,7 @@ export interface AllSvgOptions {
 describe('getSvg', () => {
 	it('should get the svg for a flag', () => {
 		const svg = getSvg('a');
-		expect(svg).toMatch(/svg viewBox="0 0 320 240"/);
+		expect(svg).toMatch(/svg viewBox="0 0 360 240"/);
 	});
 
 	describe('the variant option', () => {
@@ -24,7 +24,7 @@ describe('getSvg', () => {
 
 		it('should get the default variant', () => {
 			const svg = getSvg('a', { variant: 'default' });
-			expect(svg).toMatch(/svg viewBox="0 0 320 240"/);
+			expect(svg).toMatch(/svg viewBox="0 0 360 240"/);
 		});
 
 		it('should throw for a nonexistent variant', () => {

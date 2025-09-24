@@ -531,16 +531,9 @@ const vertical: DrawFunction = ({ clrs }, { dimensions, clrSet }) => {
 };
 
 export const rectangle: DesignSet = {
-	// Dimensions must be divisible by ?90.
 	dimensions: {
-		// default: [320, 240], // 4:3 default.
-		default: [360, 240], // 4:3 default.
-		short: [288, 240], // 4:3 default.
-
-		square: [240, 240], // 1:1 alternative.
-		long: [360, 240], // 3:2 alternative.
-
-		card: [180, 240], // Cards are always 3:4 (portrait).
+		default: [360, 240],
+		card: [180, 240], // 3:4 (portrait).
 	},
 
 	outline,
